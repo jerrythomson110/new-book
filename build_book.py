@@ -269,12 +269,73 @@ def img_flowable(path, width=None, height=None):
     return img
 
 
+# Every colour plate is restored to this one aspect ratio and printed in a
+# matching framed picture box. A short ladder of standard heights lets the
+# box shrink gracefully on text-heavy pages without changing its shape.
+PLATE_ASPECT = 1.45
+PLATE_HEIGHTS = (326, 314, 302, 290, 278, 266, 254, 242, 230, 218)
+
+
+class FramedPlate(Flowable):
+    """A colour plate clipped into a straight, bordered design box."""
+
+    def __init__(self, path, width, height=None, radius=8):
+        super().__init__()
+        self.path = str(path)
+        self.width = float(width)
+        self.height = float(height or width / PLATE_ASPECT)
+        self.radius = radius
+        self.hAlign = "CENTER"
+
+    def wrap(self, aw, ah):
+        return self.width, self.height
+
+    def draw(self):
+        c = self.canv
+        c.saveState()
+        clip = c.beginPath()
+        clip.roundRect(0, 0, self.width, self.height, self.radius)
+        c.clipPath(clip, stroke=0, fill=0)
+        c.drawImage(self.path, 0, 0, width=self.width, height=self.height,
+                    preserveAspectRatio=False, mask='auto')
+        c.restoreState()
+
+        c.saveState()
+        c.setStrokeColor(BROWN)
+        c.setLineWidth(1.05)
+        outer = c.beginPath()
+        outer.roundRect(0.5, 0.5, self.width - 1, self.height - 1, self.radius)
+        c.drawPath(outer, stroke=1, fill=0)
+        c.setStrokeColor(LIGHT_BROWN)
+        c.setLineWidth(0.35)
+        inner = c.beginPath()
+        inner.roundRect(3, 3, self.width - 6, self.height - 6,
+                        max(1, self.radius - 3))
+        c.drawPath(inner, stroke=1, fill=0)
+        c.restoreState()
+
+
+def plate_flowable(path, width=None, height=None):
+    if width and not height:
+        height = width / PLATE_ASPECT
+    if height and not width:
+        width = height * PLATE_ASPECT
+    return FramedPlate(path, width=width, height=height)
+
+
+def vignette_flowable(path, height):
+    """Initial-letter artwork in the same straight, bordered box style."""
+    im = PILImage.open(path)
+    iw, ih = im.size
+    radius = 3 if height < 60 else 6
+    return FramedPlate(path, width=height * iw / ih, height=height,
+                       radius=radius)
+
+
 def chunk_page(story_title, blocks, plate_no, text_page_no):
     """Build one book page: running head + plate + text (+ line art). Plate is
     scaled so plate+text+line-art fill but never overflow the page."""
     plate_path = AST / "plates" / f"plate-{plate_no:03d}.jpg"
-    pim = PILImage.open(plate_path); pw, ph = pim.size
-    aspect = ph / pw  # height per width
 
     line_path = AST / "lineart" / f"line-{text_page_no:03d}.png"
     has_line = text_page_no in LINE_ART_PAGES and line_path.exists()
@@ -292,9 +353,10 @@ def chunk_page(story_title, blocks, plate_no, text_page_no):
         text_h = measure(fl)
         for use_line in ((True, False) if has_line else (False,)):
             lh_needed = (line_h + 10) if use_line else 0
-            plate_h = avail - text_h - lh_needed
-            if plate_h >= 225:
-                chosen = (fl, min(plate_h, 355), use_line)
+            max_plate_h = avail - text_h - lh_needed
+            standard_h = next((h for h in PLATE_HEIGHTS if h <= max_plate_h), None)
+            if standard_h:
+                chosen = (fl, standard_h, use_line)
                 break
         if chosen:
             break
@@ -302,17 +364,17 @@ def chunk_page(story_title, blocks, plate_no, text_page_no):
         fl = []
         for i, b in enumerate(blocks):
             fl += block_flowables(b, dense=True, first=(i == 0))
-        chosen = (fl, 215, False)
+        chosen = (fl, 210, False)
     text_fl, plate_h, use_line = chosen
-    plate_w = min(FRAME_W, plate_h / aspect)
-    plate_actual_h = plate_w * aspect
+    plate_w = plate_h * PLATE_ASPECT
+    plate_actual_h = plate_h
 
     # distribute leftover whitespace on short pages so they look finished
     total_h = 21 + plate_actual_h + 13 + measure(text_fl) + ((line_h + 8) if use_line else 0)
     leftover = FRAME_H - 14 - total_h
 
     page = [Paragraph(story_title.upper(), S["RunHead"]),
-            img_flowable(plate_path, width=plate_w), Spacer(1, 13)]
+            plate_flowable(plate_path, width=plate_w, height=plate_h), Spacer(1, 13)]
     page += text_fl
     if use_line:
         gap = 8 + (min(leftover * 0.5, 80) if leftover > 55 else 0)
@@ -400,7 +462,7 @@ def build():
           Spacer(1, 6),
           Paragraph("Eight Best-Beloved Folk Stories for Children", S["CenterItalic"]),
           Ornament(space_before=8, space_after=14),
-          img_flowable(AST / "plates" / "plate-008.jpg", width=372),
+          plate_flowable(AST / "plates" / "plate-008.jpg", width=384),
           Spacer(1, 22),
           Paragraph("Illustrated by", S["CenterItalic"]),
           Paragraph("FREDERICK RICHARDSON", st("TitleIll", fontName="FellSC", fontSize=17, leading=21, alignment=TA_CENTER)),
@@ -419,12 +481,12 @@ def build():
     # ---- Contents ----
     F += [Spacer(1, 46), Paragraph("Contents", S["ContentsTitle"]), Ornament(space_after=14)]
     rows = []
-    rows.append([img_flowable(AST / "vignettes" / "vig-006.jpg", height=44),
+    rows.append([vignette_flowable(AST / "vignettes" / "vig-006.jpg", height=44),
                  Paragraph(f'<link href="#to-all-children-who-love-stories" color="#2B2118">{INTRO_TITLE}</link>', S["TOCItem"]),
                  Paragraph(str(INTRO_PG), S["TOCPage"])])
     for s in STORIES:
         anchor = re.sub(r"\W+", "-", s["title"].lower())
-        rows.append([img_flowable(AST / "vignettes" / f'vig-{s["vignette_page"]:03d}.jpg', height=44),
+        rows.append([vignette_flowable(AST / "vignettes" / f'vig-{s["vignette_page"]:03d}.jpg', height=44),
                      Paragraph(f'<link href="#{anchor}" color="#2B2118">{s["title"]}</link>', S["TOCItem"]),
                      Paragraph(str(STARTS[s["title"]]), S["TOCPage"])])
     toc = Table(rows, colWidths=[58, FRAME_W - 58 - 44, 32])
@@ -440,7 +502,7 @@ def build():
     for pi, paras in enumerate(INTRO_PAGES):
         if pi == 0:
             F += [Paragraph("TO ALL CHILDREN WHO LOVE STORIES", S["IntroHead"]),
-                  img_flowable(AST / "vignettes" / "vig-006.jpg", height=162),
+                  vignette_flowable(AST / "vignettes" / "vig-006.jpg", height=162),
                   Spacer(1, 12)]
         for i, p in enumerate(paras):
             F.append(Paragraph(esc(p), S["IntroFirst" if i == 0 else "Intro"]))
@@ -454,7 +516,7 @@ def build():
         anchor = re.sub(r"\W+", "-", s["title"].lower())
         F += [Spacer(1, 118),
               Paragraph(f"STORY {NUM_WORDS[idx].upper()}", S["StoryKicker"]),
-              img_flowable(tp, width=FRAME_W - 12),
+              plate_flowable(tp, width=FRAME_W - 12),
               Paragraph(f'<a name="{anchor}"/>{s["title"]}', S["StoryTitle"]),
               Spacer(1, 8), Ornament(),
               PageBreak()]
