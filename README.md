@@ -23,8 +23,11 @@ P. F. Volland Company, illustrated by **Frederick Richardson**).
   The House on the Hill · The Three Little Pigs · Chicken Licken ·
   The Old Woman and Her Pig · Little Tuppens · The Gingerbread Boy
 - **Artwork:** all 51 colour plates were detected in the photographs, perspective-corrected
-  (flattened), and gently colour/contrast-restored; the original line drawings that appear
-  under the text in the old book were extracted and reused on 15 pages, and the original
+  (flattened), fine-rectified against each artwork's own border, and gently
+  colour/contrast-restored. In the PDF every plate is printed in the same
+  1.45:1 framed picture box, so the images sit straight and consistent on
+  every page. The original line drawings that appear under the text in the
+  old book were extracted and reused on 15 pages, and the original
   illustrated initial letters are used as contents thumbnails.
 - **Text:** transcribed page-by-page from the photographs and faithfully re-set
   (EB Garamond / IM Fell English). The Three Bears' graded "great big / middle-sized /
