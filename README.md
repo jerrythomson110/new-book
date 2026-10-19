@@ -1,4 +1,4 @@
-# Old, Old Tales Retold — Restored Edition
+## Old, Old Tales Retold — Restored Edition
 
 A complete, newly typeset children's picture book built from the 110 photographs
 in `Untitled design (1).zip` (a cherished 1923 copy of the **Volland Edition**,
