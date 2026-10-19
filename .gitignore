@@ -1,0 +1,9 @@
+# Regenerable intermediates (see README "Rebuilding the book")
+extracted/
+pages_ordered/
+book_assets/
+preview/
+__pycache__/
+fonts/node_modules/
+fonts/package.json
+fonts/package-lock.json
