@@ -26,3 +26,9 @@ The site is a Next.js app on Vercel with a separate API (`api.problack.co`). Bec
 
 ## Caveats
 Point-in-time snapshot; prices and content change. The 105-listing sample is not a census of the claimed 9,807 products. The report is not legal advice — compliance observations should be reviewed by counsel.
+
+## Regenerating the PDF
+
+```bash
+python3 build_pdf.py    # PDF from the Markdown (needs reportlab + fonts in assets/fonts)
+```
