@@ -1,0 +1,2244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pro Black (problack.co) — Full Website & Product Catalog Audit</title>
+<style>
+  :root {
+    --ink:#151412; --ink-2:#3d3a35; --muted:#6b665e; --line:#e6e1d8;
+    --paper:#fbf9f4; --card:#ffffff; --gold:#b8862b; --gold-soft:#f0e3c8;
+    --green:#1f6f43; --red:#a52a24; --amber:#a86a12; --plum:#5c2a4a;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size:16.5px; line-height:1.62; -webkit-font-smoothing:antialiased;
+  }
+  .shell { display:grid; grid-template-columns: 280px minmax(0,1fr); gap:0; max-width:1400px; margin:0 auto; }
+  /* Sidebar */
+  aside {
+    position:sticky; top:0; align-self:start; height:100vh; overflow-y:auto;
+    padding:34px 22px 40px; border-right:1px solid var(--line);
+    background:linear-gradient(180deg,#12110f 0%, #1b1915 100%); color:#efe9dc;
+  }
+  aside .mark { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    letter-spacing:.16em; text-transform:uppercase; font-size:10.5px; color:#c9a862; }
+  aside h2 { font-size:19px; line-height:1.25; margin:10px 0 4px; color:#fff; font-weight:600; }
+  aside .sub { font-size:12.5px; color:#b9b1a2; margin-bottom:22px; }
+  aside .navlabel { font-family: ui-sans-serif, system-ui, sans-serif; font-size:10px;
+    letter-spacing:.14em; text-transform:uppercase; color:#8f8778; margin:18px 0 8px; }
+  .toc-link { display:block; padding:4px 0; color:#d8d0c1; text-decoration:none; font-size:12.6px;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; border-left:2px solid transparent; padding-left:10px; }
+  .toc-link:hover { color:#f2d79b; border-left-color:var(--gold); }
+  main { padding:0 0 80px; background:var(--paper); min-width:0; }
+  /* Cover */
+  .cover {
+    padding:64px 64px 40px; background:
+      radial-gradient(1200px 380px at 85% -10%, rgba(184,134,43,.18), transparent 60%),
+      linear-gradient(180deg,#17150f 0%, #211d16 100%);
+    color:#f6efe2; border-bottom:4px solid var(--gold);
+  }
+  .cover .kicker { font-family: ui-sans-serif, system-ui, sans-serif; font-size:11px; letter-spacing:.22em;
+    text-transform:uppercase; color:#cfa95f; }
+  .cover h1 { font-size:52px; line-height:1.02; margin:14px 0 6px; font-weight:600; letter-spacing:-.02em; }
+  .cover .h2 { font-size:24px; color:#e8dcc6; font-weight:400; font-style:italic; margin:0 0 22px; }
+  .meta { display:flex; flex-wrap:wrap; gap:10px 26px; font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size:12px; color:#c9c0af; }
+  .meta b { color:#f3ead9; font-weight:600; }
+  .verdict { margin:26px 0 0; padding:16px 18px; border-left:3px solid var(--gold);
+    background:rgba(255,255,255,.055); font-size:15px; color:#efe6d5; max-width:800px; }
+  .verdict b { color:#f6d99b; }
+  /* Body */
+  .content { padding:46px 64px 40px; max-width:1000px; }
+  h2 { font-size:29px; line-height:1.2; margin:54px 0 14px; padding-top:10px; letter-spacing:-.01em; }
+  h2:first-of-type { margin-top:0; }
+  h3 { font-size:20px; margin:30px 0 8px; }
+  h4 { font-size:16px; margin:22px 0 6px; font-family: ui-sans-serif, system-ui, sans-serif; letter-spacing:.01em; }
+  p { margin:10px 0 14px; }
+  a { color:#8a5a12; text-decoration:none; border-bottom:1px solid rgba(138,90,18,.3); }
+  a:hover { border-bottom-color:#8a5a12; }
+  ul, ol { padding-left:22px; }
+  li { margin:5px 0; }
+  strong { font-weight:650; }
+  hr { border:0; border-top:1px solid var(--line); margin:42px 0; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:13px;
+    background:#f1ece2; padding:1.5px 5px; border-radius:4px; color:#4a3a22; }
+  pre { background:#17150f; color:#efe8da; padding:16px 18px; border-radius:8px; overflow:auto; font-size:12.5px; }
+  pre code { background:none; color:inherit; padding:0; }
+  blockquote { margin:18px 0; padding:14px 18px; background:#fff; border-left:3px solid var(--gold);
+    border-radius:0 6px 6px 0; color:var(--ink-2); box-shadow:0 1px 0 rgba(0,0,0,.03); }
+  blockquote p { margin:0; }
+  /* Tables */
+  .tablewrap { overflow-x:auto; margin:18px 0 24px; border:1px solid var(--line); border-radius:8px; background:var(--card); }
+  table { border-collapse:collapse; width:100%; font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; font-size:13.2px; }
+  th { text-align:left; background:#f6f1e7; color:#4a4338; font-weight:650; padding:10px 12px;
+    border-bottom:1px solid var(--line); vertical-align:bottom; }
+  td { padding:10px 12px; border-bottom:1px solid #efeae1; vertical-align:top; color:var(--ink-2); }
+  tr:last-child td { border-bottom:0; }
+  tbody tr:hover { background:#fdfbf6; }
+  td.g-f, td.g-d { font-family: ui-sans-serif, system-ui, sans-serif; }
+  td.g-f { color:var(--red); } td.g-d { color:var(--amber); }
+  td.g-c { color:#7a6512; } td.g-a, td.g-b { color:var(--green); }
+  .pill { display:inline-block; font-family: ui-sans-serif, system-ui, sans-serif; font-size:11px;
+    font-weight:650; padding:2px 8px; border-radius:999px; }
+  .pill-red { background:#f7e3e1; color:#8d2620; }
+  .pill-amber { background:#f8ecd6; color:#8a5a12; }
+  .sev { display:inline-block; font-family: ui-sans-serif, system-ui, sans-serif; font-size:10.5px;
+    font-weight:700; letter-spacing:.03em; text-transform:uppercase; padding:2px 8px; border-radius:3px; white-space:nowrap; }
+  .sev-c { background:#f6dedb; color:#8d1f19; }
+  .sev-h { background:#f8e8cf; color:#8a5310; }
+  .sev-m { background:#eee9dc; color:#5f5748; }
+  /* Callouts: paragraphs starting with Verdict etc. left as-is */
+  .content > p:first-of-type { font-size:18px; color:#4a453c; }
+  footer { margin-top:60px; padding:26px 0 0; border-top:1px solid var(--line);
+    font-family: ui-sans-serif, system-ui, sans-serif; font-size:11.5px; color:var(--muted); }
+  @media (max-width: 1080px) {
+    .shell { grid-template-columns:1fr; }
+    aside { position:relative; height:auto; display:none; }
+    .cover, .content { padding-left:28px; padding-right:28px; }
+    .cover h1 { font-size:38px; }
+  }
+  @media print {
+    aside { display:none; } .shell { display:block; }
+    body { background:#fff; font-size:10.5pt; }
+    .cover { background:#fff; color:#000; border-bottom:2px solid #000; padding:24px 0; }
+    .cover h1, .cover .h2, .cover .meta b { color:#000; }
+    .verdict { background:#f4f2ee; color:#000; }
+    .content { padding:18px 0; max-width:none; }
+    h2 { page-break-after:avoid; } table { page-break-inside:auto; } tr { page-break-inside:avoid; }
+    a { color:#000; border:0; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside>
+    <div class="mark">Independent Audit</div>
+    <h2>Pro Black</h2>
+    <div class="sub">problack.co · 20 Oct 2026</div>
+    <div class="navlabel">Contents</div>
+    <a href="#1-executive-summary" class="toc-link">1. Executive summary</a>
+<a href="#2-method-scope-and-limitations" class="toc-link">2. Method, scope and limitations</a>
+<a href="#3-scorecard" class="toc-link">3. Scorecard</a>
+<a href="#4-catalog-audit-what-is-actually-for-sale" class="toc-link">4. Catalog audit: what is actually for sale</a>
+<a href="#5-pricing-and-promotions" class="toc-link">5. Pricing and promotions</a>
+<a href="#6-product-page-content-and-ux" class="toc-link">6. Product page content and UX</a>
+<a href="#7-category-browse-and-search-architecture" class="toc-link">7. Category, browse and search architecture</a>
+<a href="#8-claims-statistics-and-social-proof" class="toc-link">8. Claims, statistics and social proof</a>
+<a href="#9-business-directory-and-services" class="toc-link">9. Business directory and services</a>
+<a href="#10-legal-policy-and-compliance" class="toc-link">10. Legal, policy and compliance</a>
+<a href="#11-seo" class="toc-link">11. SEO</a>
+<a href="#12-performance-and-technical-delivery" class="toc-link">12. Performance and technical delivery</a>
+<a href="#13-security-and-privacy" class="toc-link">13. Security and privacy</a>
+<a href="#14-accessibility" class="toc-link">14. Accessibility</a>
+<a href="#15-mobile-apps-and-cross-channel-consistency" class="toc-link">15. Mobile apps and cross-channel consistency</a>
+<a href="#16-support-and-operations" class="toc-link">16. Support and operations</a>
+<a href="#17-content-and-blog" class="toc-link">17. Content and blog</a>
+<a href="#18-what-is-working" class="toc-link">18. What is working</a>
+<a href="#19-prioritised-remediation-plan" class="toc-link">19. Prioritised remediation plan</a>
+<a href="#20-appendices" class="toc-link">20. Appendices</a>
+  </aside>
+  <main>
+    <div class="cover">
+      <div class="kicker">Website &amp; Catalog Review</div>
+      <h1>Pro Black</h1>
+      <div class="h2">Full Website &amp; Product Catalog Audit</div>
+      <div class="meta">
+        <span><b>Site</b> problack.co</span>
+        <span><b>Date</b> 20 October 2026</span>
+        <span><b>Pages reviewed</b> 40+</span>
+        <span><b>Listings sampled</b> 105</span>
+        <span><b>Verdict</b> D — not launch-ready</span>
+        <span><b>Evidence</b> 8 sitemaps · 2 app stores</span>
+      </div>
+      <div class="verdict">
+        <b>Headline:</b> the storefront looks credible, but the catalog does not support its
+        central claim. Every product page examined sells via “ProBlack Team”, the sampled inventory is
+        platform- or mass-market-branded, and the 18 verified Black-owned businesses have no products
+        in the shop. The site’s pricing claims, statistics and policies compound the problem.
+      </div>
+    </div>
+    <div class="content">
+      <h2 id="1-executive-summary">1. Executive summary</h2>
+<h3 id="verdict">Verdict</h3>
+<p><strong>Pro Black is a well-designed storefront wrapped around a catalog that does not support its core claim.</strong></p>
+<p>The site presents itself as a marketplace of "verified Black-owned sellers" with 9,807 products. In reality:</p>
+<ul>
+<li><strong>Every product page examined (5/5) says "Sold by ProBlack Team."</strong> No product we could find is attributed to one of the 18 businesses in the directory.</li>
+<li><strong>100% of the 105 sampled listings</strong> are either platform-branded ("Pro Black") or mass-market third-party brands — Apple, Samsung, Bose, Beats, LEGO, Clinique, Elizabeth Arden, Nivea, Garnier, Cantu, Lottabody, Frito-Lay, Barilla, Knorr, Bertolli and similar.</li>
+<li><strong>The 18 "verified Black-owned businesses" have almost no sellable inventory</strong>: 3 services in total, and no products we could attribute to them in the shop. Searching for <em>Luji's Chocolate</em> — a featured business — returns "No products found."</li>
+<li><strong>The catalog appears to be a drop-ship feed.</strong> SKU prefixes (<code>WM-</code>, <code>PRB-ELE-</code>), Walmart-style product titles and pricing, and images hosted on a third-party domain (<code>demo-client.us</code>) all point to imported retail data rather than vendor listings.</li>
+</ul>
+<p>This is not a cosmetic problem. The entire value proposition — "your money goes to Black entrepreneurs" — is contradicted by the product data. That is a <strong>trust, brand and consumer-protection issue</strong>, not a marketing tweak.</p>
+<h3 id="the-ten-most-serious-findings">The ten most serious findings</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Finding</th>
+<th>Severity</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Products marketed as "from Black-owned sellers" are sold by the platform itself and are overwhelmingly non-Black-owned brands</td>
+<td><span class="sev sev-c">Critical</span></td>
+<td>5/5 product pages: "Sold by ProBlack Team"; 105/105 sampled listings are platform- or mass-market-branded; no products attributable to the 18 directory businesses</td>
+</tr>
+<tr>
+<td>2</td>
+<td>"Compare-at" prices appear fabricated; discounts are anchored to repeated, implausible figures</td>
+<td><span class="sev sev-c">Critical</span></td>
+<td>Identical "was" price <strong>$388.70</strong> on a birthstone necklace, three jewelry sets <em>and</em> an iPhone 13; <strong>$293.90</strong> on two different earbuds; a generic 30W speaker at <strong>$855.40</strong>; a money counter at <strong>$1,583.99</strong></td>
+</tr>
+<tr>
+<td>3</td>
+<td>The site explicitly claims discounts are genuine — while displaying the opposite</td>
+<td><span class="sev sev-c">Critical</span></td>
+<td>Deals page: "Every discount is a genuine reduction from the previous price — no inflated 'was' prices." Same page shows the repeated anchors above</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Traffic-driving category pages are broken or mislabelled</td>
+<td><span class="sev sev-h">High</span></td>
+<td><code>/shop/clothing-and-fashion</code> renders <strong>zero products</strong> yet is the destination of the homepage hero "Shop Fashion" tile; Electronics intro promises Canon/Sony cameras but lists watch batteries and headphones; Jewelry intro promises men's watches but lists women's jewelry sets</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Statistics contradict each other across the site by orders of magnitude</td>
+<td><span class="sev sev-h">High</span></td>
+<td>18 businesses (sitemap) vs 19 (homepage) vs "150+ Active Vendors" vs "500+ Black-owned businesses" vs "50K+ Active Members"; 3 services vs "2K+ Total Bookings"; 50+ Play Store installs vs "5K+ Happy Customers"</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Zero reviews anywhere, despite claims of "verified reviews from real customers" and a "4.9★ Average Rating"</td>
+<td><span class="sev sev-h">High</span></td>
+<td>Every sampled product: "Reviews (0)"; both business profiles reviewed: "0 Reviews / — Rating"; the service page reviewed: "Reviews (0)"; services landing page displays 4.9★</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Product content is auto-generated and frequently about the wrong product</td>
+<td><span class="sev sev-h">High</span></td>
+<td>LEGO set described as "Offered in size SMALL… soft, safe materials… sounds babies love"; a Bluetooth speaker with "comfortable, lightweight design for all-day wear"; identical template paragraphs across unrelated categories</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Legal identity and policies are inconsistent and written for the mobile app only</td>
+<td><span class="sev sev-h">High</span></td>
+<td>Privacy Policy says "Pro Black mobile application… available on the Google Play Store"; two different company addresses; support email is a personal Gmail on Google Play; vendor signup's Terms/Privacy links are <code>#</code></td>
+</tr>
+<tr>
+<td>9</td>
+<td>Return and refund promises conflict and may be unfulfillable</td>
+<td><span class="sev sev-h">High</span></td>
+<td>Return Policy: "prepaid return label is included in your package"; Refund Policy: "return shipping costs are non-refundable"; refund window 5 days vs 5–10 business days</td>
+</tr>
+<tr>
+<td>10</td>
+<td>9,800+ near-duplicate product pages and several hundred programmatic city/category pages create substantial SEO and quality risk</td>
+<td><span class="sev sev-h">High</span></td>
+<td>Every product sitemap entry sampled carried <code>lastmod</code> 2026-07-22; 9,807 products but only ~19 server-rendered per category; location pages with no businesses and self-referential links</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="bottom-line">Bottom line</h3>
+<p>If Pro Black intends to be a <strong>Black-owned marketplace</strong>, it needs to rebuild the catalog around actual verified vendors, remove non-Black-owned inventory, and replace every unsupported claim with audited numbers. That is a 3–6 month program.</p>
+<p>If the intent is a <strong>deals/affiliate storefront</strong>, the Black-owned framing must be removed from the shop and reserved for the directory. Continuing to mix the two creates a consumer-deception risk that no amount of design polish offsets.</p>
+<hr />
+<h2 id="2-method-scope-and-limitations">2. Method, scope and limitations</h2>
+<h3 id="what-was-reviewed">What was reviewed</h3>
+<ul>
+<li><strong>Core pages:</strong> home, shop, deals, best-sellers, new arrivals, top categories, services, business directory, state page, business profiles ×2, service page, blog index, blog article ×2, FAQ, contact, support, app, our-mission, cart, checkout, login, signup, track order, delete account, privacy, terms, return policy, refund policy, 404.</li>
+<li><strong>Categories:</strong> all 23 product-category URLs enumerated from the sitemap; 6 opened in full (Beauty, Electronics, Jewelry, Grocery, Financial Services, Clothing).</li>
+<li><strong>Catalog:</strong> 105 listings captured with title, brand, price, compare-at price, discount, seller and flags. 5 product pages reviewed in depth.</li>
+<li><strong>Sitemaps:</strong> all 8 child sitemaps inspected (pages, categories, products, blog, locations, SEO pages, businesses, services); the very large product/SEO sitemaps were sampled.</li>
+<li><strong>Technical:</strong> HTTP response headers, meta tags, canonical tags, JSON-LD, robots.txt, sitemap structure, redirect behaviour, image delivery.</li>
+<li><strong>Off-site:</strong> Apple App Store listing, Google Play listing, brand-ownership facts verified against public sources.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<ol>
+<li><strong>No authenticated access.</strong> Cart, checkout, account, vendor dashboard and order flows could not be exercised end-to-end. Findings on those areas are based on server-rendered pages and public information.</li>
+<li><strong>Sample, not census.</strong> The catalog claims 9,807 products. We sampled 105 listings across 13 views rather than fetching every page; percentages describe the sample, not the full catalog.</li>
+<li><strong>Lighthouse did not complete.</strong> An automated Lighthouse run on the homepage returned <code>PAGE_HUNG</code> ("the page stopped responding"). Performance findings are therefore structural observations, not scores. This should be re-run manually.</li>
+<li><strong>No analytics or server access.</strong> Conversion, traffic, refund and order data were unavailable.</li>
+<li><strong>Point-in-time.</strong> Prices, stock and content change; figures reflect 20 October 2026.</li>
+<li><strong>Not legal advice.</strong> Compliance observations flag risk for counsel to review.</li>
+</ol>
+<hr />
+<h2 id="3-scorecard">3. Scorecard</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Grade</th>
+<th>One-line assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Brand promise &amp; trust</strong></td>
+<td class="g-f"><strong>F</strong></td>
+<td>The central claim (Black-owned sellers) is contradicted by the catalog and the seller field</td>
+</tr>
+<tr>
+<td><strong>Catalog integrity</strong></td>
+<td class="g-f"><strong>F</strong></td>
+<td>Platform-owned drop-ship feed, mass-market brands, no vendor attribution</td>
+</tr>
+<tr>
+<td><strong>Product content</strong></td>
+<td class="g-f"><strong>F</strong></td>
+<td>Template copy, wrong-product descriptions, empty specs, zero reviews</td>
+</tr>
+<tr>
+<td><strong>Pricing &amp; promotions</strong></td>
+<td class="g-f"><strong>F</strong></td>
+<td>Repeated/implausible anchor prices plus an explicit "no inflated prices" claim</td>
+</tr>
+<tr>
+<td><strong>Category &amp; browse UX</strong></td>
+<td class="g-d"><strong>D</strong></td>
+<td>Empty category, mismatched intros, no URL pagination, no working filters, very limited search</td>
+</tr>
+<tr>
+<td><strong>Claims &amp; social proof</strong></td>
+<td class="g-f"><strong>F</strong></td>
+<td>Statistics inconsistent by 10–100×; ratings shown with no reviews</td>
+</tr>
+<tr>
+<td><strong>Legal &amp; policy</strong></td>
+<td class="g-d"><strong>D</strong></td>
+<td>App-only policies, conflicting addresses, contradictory returns/refunds, dead consent links</td>
+</tr>
+<tr>
+<td><strong>SEO</strong></td>
+<td class="g-c"><strong>C−</strong></td>
+<td>Sound technical base undermined by thin/duplicate pages, incomplete product schema, index bloat</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td><strong>C (unverified)</strong></td>
+<td>Modern stack, but page hung in automated testing; heavy image markup</td>
+</tr>
+<tr>
+<td><strong>Security &amp; privacy</strong></td>
+<td class="g-c"><strong>C−</strong></td>
+<td>HTTPS/HSTS present; most hardening headers missing; no visible cookie consent</td>
+</tr>
+<tr>
+<td><strong>Accessibility</strong></td>
+<td class="g-d"><strong>D</strong></td>
+<td>Multiple unlabelled images, no accessibility statement, content hidden behind client-only tabs</td>
+</tr>
+<tr>
+<td><strong>Content &amp; blog</strong></td>
+<td class="g-d"><strong>D</strong></td>
+<td>High-volume AI content, off-topic, unsourced claims, duplicate URLs</td>
+</tr>
+<tr>
+<td><strong>Support &amp; operations</strong></td>
+<td class="g-d"><strong>D</strong></td>
+<td>One inbox, two phone numbers, unverifiable live chat, manual returns</td>
+</tr>
+<tr>
+<td><strong>Mobile apps</strong></td>
+<td class="g-d"><strong>D</strong></td>
+<td>Two App Store IDs, 50+ Android installs, no ratings, personal Gmail as support contact</td>
+</tr>
+<tr>
+<td><strong>Overall</strong></td>
+<td><strong>D (not launch-ready in current form)</strong></td>
+<td>Strong visual design; fundamental integrity and compliance gaps</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="4-catalog-audit-what-is-actually-for-sale">4. Catalog audit: what is actually for sale</h2>
+<h3 id="41-composition-of-the-catalog">4.1 Composition of the catalog</h3>
+<p>The store reads as a general-merchandise drop-ship feed, not a curated Black-owned marketplace. The sampled assortment included:</p>
+<ul>
+<li><strong>Electronics:</strong> prepaid carrier phones (Straight Talk, Total Wireless, Cricket, Walmart Family Mobile), unlocked iPhones and Galaxy phones, headphones, earbuds, smartwatches, phone tripods, watch batteries, a gaming keyboard, a VR headset.</li>
+<li><strong>Beauty:</strong> Clinique, Elizabeth Arden, Glow Recipe, Nivea, Tula, Medicube, Florence by Mills, Good Molecules, face masks, body lotion.</li>
+<li><strong>Jewelry:</strong> "18K white gold plated" sets from Cate &amp; Chloe and a long tail of marketplace brands (K-KED, OEOEOS, SPRING PARK, Ruanlalo).</li>
+<li><strong>Grocery:</strong> Frito-Lay variety packs, Barilla pasta, Bertolli olive-oil spray, Knorr bouillon, Gamesa crackers, Badia spices, La Banderita tortillas.</li>
+<li><strong>Financial Services:</strong> scientific calculators (Texas Instruments, Casio) and money counters.</li>
+<li><strong>Books &amp; Media:</strong> mass-market paperbacks including <em>The Hunger Games</em> prequel and <em>To Kill a Mockingbird</em>.</li>
+<li><strong>Toys, baby, pet, office, home &amp; garden:</strong> LEGO sets, generic dog chews, desk organizers, garden loppers, a sofa cover.</li>
+</ul>
+<p>This is a generic Walmart/Amazon-style assortment. Nothing about it is curated around Black-owned makers.</p>
+<h3 id="42-who-is-actually-selling">4.2 Who is actually selling</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product pages reviewed</td>
+<td>5 of 5 show <strong>"Sold by ProBlack Team — Verified Seller"</strong></td>
+</tr>
+<tr>
+<td>Products attributed to a directory business</td>
+<td><strong>None found</strong></td>
+</tr>
+<tr>
+<td>Directory businesses with products in the shop</td>
+<td><strong>0</strong> (18 businesses; Luji's Chocolate search returns "No products found")</td>
+</tr>
+<tr>
+<td>Seller identity shown on category cards</td>
+<td>The <strong>brand name</strong> (e.g. "Cate &amp; Chloe", "Bose", "Apple") — visually implying the brand is the seller</td>
+</tr>
+<tr>
+<td>Platform-branded listings in sample</td>
+<td><strong>56 / 105 (53%)</strong> show "Pro Black" as the brand</td>
+</tr>
+<tr>
+<td>SKU formats</td>
+<td><code>WM-…</code> (Walmart-style), <code>PRB-ELE-…</code>, <code>WM-B2A7946C</code></td>
+</tr>
+<tr>
+<td>Image host</td>
+<td><code>demo-client.us</code> — a third-party domain, not a vendor CDN</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Interpretation:</strong> the "verified seller" badge is attached to the platform's own account. It certifies nothing about Black ownership. The category cards then display the national brand name where shoppers expect the seller, which compounds the impression that these are independent vendors.</p>
+<h3 id="43-the-brand-problem">4.3 The brand problem</h3>
+<p>The shop sells products from companies that are demonstrably not Black-owned — and in several cases are the exact brands that Black-owned-business advocates warn about.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Product in shop</th>
+<th>Brand</th>
+<th>Ownership reality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cantu Shea Butter Leave-In Cream</td>
+<td>Cantu</td>
+<td>Owned by PDC Brands (majority-owned by CVC Capital Partners). Cantu's own FAQ states: <strong>"Whilst we are not Black-owned, we are Black-led."</strong></td>
+</tr>
+<tr>
+<td>Garnier Fructis Bouncy Curls Gel</td>
+<td>Garnier</td>
+<td>L'Oréal</td>
+</tr>
+<tr>
+<td>Nivea Cocoa Butter Body Lotion</td>
+<td>Nivea</td>
+<td>Beiersdorf AG</td>
+</tr>
+<tr>
+<td>Clinique Discover 3-Piece Set</td>
+<td>Clinique</td>
+<td>The Estée Lauder Companies</td>
+</tr>
+<tr>
+<td>Elizabeth Arden 9-Piece Set</td>
+<td>Elizabeth Arden</td>
+<td>The Estée Lauder Companies</td>
+</tr>
+<tr>
+<td>Lottabody Wrap Me Mousse</td>
+<td>Lottabody</td>
+<td>Revlon Pro (Revlon)</td>
+</tr>
+<tr>
+<td>Beats Solo3</td>
+<td>Beats by Dr. Dre</td>
+<td>Apple</td>
+</tr>
+<tr>
+<td>Frito-Lay variety packs; Gamesa crackers</td>
+<td>Frito-Lay / Gamesa</td>
+<td>PepsiCo</td>
+</tr>
+<tr>
+<td>Knorr bouillon</td>
+<td>Knorr</td>
+<td>Unilever</td>
+</tr>
+<tr>
+<td>Bertolli olive-oil spray</td>
+<td>Bertolli</td>
+<td>Deoleo (olive oil); brand held by Mizkan</td>
+</tr>
+<tr>
+<td>Bose QC35 II</td>
+<td>Bose</td>
+<td>Bose Corporation</td>
+</tr>
+<tr>
+<td>LEGO Jade Rabbit</td>
+<td>LEGO</td>
+<td>The LEGO Group</td>
+</tr>
+<tr>
+<td>iPhone, Samsung Galaxy, Skullcandy, JLab, Casio, Texas Instruments, Barilla</td>
+<td>—</td>
+<td>National/multinational brands</td>
+</tr>
+</tbody>
+</table></div>
+<p>The site even publishes an article titled <strong>"Brands You Thought Were Black-Owned (But Aren't)"</strong> — which, despite never naming a single brand, warns that "popular beauty brands" are owned by large corporations while the shop simultaneously sells Cantu and Garnier under a Black-owned banner. The editorial and the commerce contradict each other.</p>
+<p><strong>Why this matters beyond brand optics:</strong> "Black-owned" is the product. A shopper paying a premium or choosing Pro Black over Amazon is paying for provenance. If provenance is absent, the transaction is misrepresented. In the US this falls within FTC Act §5 (deceptive practices) and state unfair-and-deceptive-practices statutes, and it is precisely the kind of claim that attorneys general and class-action firms test.</p>
+<h3 id="44-catalog-scale-vs-catalog-reality">4.4 Catalog scale vs. catalog reality</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Claimed / observed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Products claimed on homepage</td>
+<td><strong>9,807</strong></td>
+</tr>
+<tr>
+<td>Products marked down (deals page)</td>
+<td><strong>2,052</strong></td>
+</tr>
+<tr>
+<td>Product URLs in sitemap</td>
+<td>One <code>products.xml</code> file of ~9.8k URLs — consistent with the claim</td>
+</tr>
+<tr>
+<td>Products visible without JavaScript per category</td>
+<td><strong>~19</strong></td>
+</tr>
+<tr>
+<td>Products attributable to directory businesses</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>Categories in sitemap</td>
+<td><strong>23</strong></td>
+</tr>
+<tr>
+<td>Categories in header navigation</td>
+<td><strong>9</strong></td>
+</tr>
+<tr>
+<td>Categories on "Top Categories" page</td>
+<td><strong>21</strong> (using <code>?category=</code> query URLs)</td>
+</tr>
+</tbody>
+</table></div>
+<p>A nine-figure product count is being used as proof of marketplace scale, but scale is not the issue — provenance is. Ten thousand feed items with no vendor relationship is a liability, not an asset.</p>
+<h3 id="45-duplicate-and-variant-sprawl">4.5 Duplicate and variant sprawl</h3>
+<p>The product sitemap shows heavy near-duplication typical of feed imports:</p>
+<ul>
+<li>Multiple listings for the same phone in different carrier locks: iPhone 13 (unlocked, Cricket, Straight Talk, Walmart Family Mobile), Galaxy S22/A16/A17 variants, Pixel 3/4/7a/9/10 variants.</li>
+<li>Same item listed twice with different capitalization or punctuation (e.g. <em>For Richer, For Poorer</em> novel vs. variants in the feed).</li>
+<li>Spanish-language listings sit alongside English ones (a 71" tripod listed entirely in Spanish, with a transliterated slug) — no localisation strategy, just feed noise.</li>
+<li>Titles are truncated to a fixed character count, sometimes mid-word or with stray punctuation: "…Colors Crayons Colored P", "…Garden Loppers … Chops Thick Hi", "…Smart Watch … waterpro".</li>
+</ul>
+<p>This creates thousands of thin, near-identical pages that compete with each other and dilute whatever authority the domain earns.</p>
+<hr />
+<h2 id="5-pricing-and-promotions">5. Pricing and promotions</h2>
+<h3 id="51-the-anchor-price-problem">5.1 The anchor-price problem</h3>
+<p>The "was" prices are not credible. Examples drawn directly from the site:</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Price</th>
+<th>"Was"</th>
+<th>Shown discount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>May Birthstone 18K White Gold Plated Jewelry</td>
+<td>$45.49</td>
+<td><strong>$388.70</strong></td>
+<td>−88%</td>
+</tr>
+<tr>
+<td>Mckayla 18K White Gold Plated Set</td>
+<td>$45.49</td>
+<td><strong>$388.70</strong></td>
+<td>−88%</td>
+</tr>
+<tr>
+<td>Cordelia 18K White Gold Plated Set</td>
+<td>$45.49</td>
+<td><strong>$388.70</strong></td>
+<td>−88%</td>
+</tr>
+<tr>
+<td>Apple iPhone 13, unlocked 128GB</td>
+<td>$388.70</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Viviana 18K Set with Swarovski Crystals</td>
+<td>$34.99</td>
+<td><strong>$299.00</strong></td>
+<td>−88%</td>
+</tr>
+<tr>
+<td>Veatool T8 Wireless Earbuds</td>
+<td>$32.32</td>
+<td><strong>$293.90</strong></td>
+<td>−89%</td>
+</tr>
+<tr>
+<td>Veatool Mini Go Headphones</td>
+<td>$44.08</td>
+<td><strong>$293.90</strong></td>
+<td>−85%</td>
+</tr>
+<tr>
+<td>Wireless Headphone Bluetooth 5.4</td>
+<td>$19.89</td>
+<td><strong>$159.99</strong></td>
+<td>−88%</td>
+</tr>
+<tr>
+<td>Portable Bluetooth Speaker 30W (generic, brand CASCHO)</td>
+<td><strong>$855.40</strong></td>
+<td><strong>$1,002.86</strong></td>
+<td>−15%</td>
+</tr>
+<tr>
+<td>Cassida 9900R Money Counter</td>
+<td><strong>$1,583.99</strong></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Total Wireless iPhone 17e 512GB</td>
+<td><strong>$1,038.70</strong></td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two patterns stand out:</p>
+<ol>
+<li><strong>Repeated anchors across unrelated goods.</strong> $388.70 appears as the "original" price of a birthstone necklace, two jewelry sets <em>and</em> an iPhone 13. $293.90 is shared by two unrelated earbuds. $299.00 covers two different jewelry sets. Real retail prices do not behave this way; generated or defaulted reference prices do.</li>
+<li><strong>Implausible absolute prices.</strong> A no-name 30W Bluetooth speaker at $855.40; a money counter at $1,583.99; a 512GB prepaid iPhone 17e at $1,038.70. Several of these are far above normal retail, suggesting unit/price mapping errors in the feed.</li>
+</ol>
+<h3 id="52-the-claim-that-makes-it-worse">5.2 The claim that makes it worse</h3>
+<p>The Deals page states:</p>
+<blockquote>
+<p>"2,052 products marked down by Black-owned sellers. <strong>Every discount is a genuine reduction from the previous price — no inflated 'was' prices.</strong>"</p>
+</blockquote>
+<p>That sentence converts a data-quality problem into an affirmative misrepresentation. Under the FTC's Guides Against Deceptive Pricing (16 CFR Part 233), a reference price must be a price at which the product was actually offered in the recent, regular course of business. If $388.70 was never charged, the "88% off" is fictitious. The explicit denial ("no inflated 'was' prices") is an aggravating factor, not a defence.</p>
+<h3 id="53-promotional-pages">5.3 Promotional pages</h3>
+<ul>
+<li><code>Today's Deals</code> claims 2,052 marked-down products (21% of the claimed catalog).</li>
+<li>The same six jewelry items appear at the top of Home, Shop, Deals and Jewelry — the "Recommended" sort is effectively static, so "deals" look curated but are not.</li>
+<li>No price-history, no "was" date range, no per-product promotion end date.</li>
+<li>No coupon, bundle, loyalty or member pricing — the only promotion mechanic is a discount badge.</li>
+</ul>
+<h3 id="54-recommended-fix-pricing">5.4 Recommended fix (pricing)</h3>
+<ol>
+<li>Remove every compare-at price that cannot be tied to a documented prior selling price and date.</li>
+<li>Recompute discounts from actual price history; suppress the badge when history is missing.</li>
+<li>Fix unit/price mapping errors in the feed (speaker, money counter, prepaid phones) before indexing.</li>
+<li>Delete the "no inflated 'was' prices" sentence until it is true.</li>
+<li>Add price-history disclosure ("lowest price in 90 days") if selling into the EU/UK.</li>
+</ol>
+<hr />
+<h2 id="6-product-page-content-and-ux">6. Product page content and UX</h2>
+<h3 id="61-template-copy-often-about-the-wrong-product">6.1 Template copy, often about the wrong product</h3>
+<p>Every product page uses the same skeleton:</p>
+<blockquote>
+<p>"{Product} is a {piece/device/toy} built for quality and everyday usability. It comes as a value 1-pack and comes in a clean white finish… A dependable pick in {category}, it ships fast from ProBlack, the marketplace built around Black-owned commerce."</p>
+</blockquote>
+<p>Consequences observed:</p>
+<ul>
+<li><strong>LEGO Jade Rabbit set</strong> — "Offered in size <strong>SMALL</strong> for a comfortable fit… <strong>Soft, safe materials</strong> designed for little hands… <strong>sounds babies love</strong>." This is infant-rattle copy applied to a building-brick set.</li>
+<li><strong>Portable Bluetooth speaker</strong> — "…<strong>comfortable, lightweight design for all-day wear</strong>." Headphone copy applied to a speaker.</li>
+<li><strong>Bose QC35 II</strong> — no mention of noise cancellation, battery life, codecs, weight or what is in the box. Instead: "Genuine Bose quality you can trust."</li>
+<li><strong>Cantu leave-in cream</strong> — six paragraphs of generic shea-butter essay, no ingredients, size confirmation beyond the title, or usage guidance specific to the SKU.</li>
+</ul>
+<p>This is not just poor copywriting; it is <strong>product misinformation</strong>. A shopper relying on "size SMALL" for a LEGO set or "all-day wear" for a speaker is being misled about the item.</p>
+<h3 id="62-empty-tabs">6.2 Empty tabs</h3>
+<p>Product pages show tabs: <strong>About this item · Highlights · Specifications · FAQs · Reviews (0)</strong>.</p>
+<ul>
+<li><strong>Specifications:</strong> no specification table rendered on any sampled page.</li>
+<li><strong>FAQs:</strong> no product-specific Q&amp;A rendered.</li>
+<li><strong>Reviews:</strong> zero on every sampled page.</li>
+<li><strong>Highlights:</strong> repeats the "At a glance" bullets.</li>
+</ul>
+<p>Three of five tabs are empty shells. This is visible to users and to Google.</p>
+<h3 id="63-no-variant-handling">6.3 No variant handling</h3>
+<p>No size, colour, capacity or carrier selector on product pages, even for items with obvious variants (phones, apparel, jewelry sets). Variants exist as separate SKUs with separate pages, which fragments reviews and SEO and makes comparison impossible.</p>
+<h3 id="64-commerce-mechanics">6.4 Commerce mechanics</h3>
+<ul>
+<li><strong>Stock:</strong> "In stock" is static; no quantity or backorder state.</li>
+<li><strong>Shipping:</strong> "Estimated in 2–6 business days" and "Shipping calculated at checkout" — no rate table, no free-shipping threshold, no carrier. The Product schema, however, declares a flat <strong>$12.00 shipping rate</strong> with 1–2 days handling and 1–4 days transit, which contradicts the visible copy.</li>
+<li><strong>Returns:</strong> "an easy returns policy on every order" — links nowhere from the PDP. The Product schema declares <code>FreeReturn</code> / 30 days, while the Refund Policy says return shipping is non-refundable.</li>
+<li><strong>Schema:</strong> Product/Offer markup exists and correctly names the seller "ProBlack Team", but omits <code>brand</code>, declares the LEGO set's weight as <strong>1 lb</strong>, and sets <code>priceValidUntil</code> a year out — signs of a templated generator rather than per-product data. BreadcrumbList points at a query-string category URL, and the FAQPage repeats two generic shipping questions rather than product-specific answers.</li>
+<li><strong>Seller contact:</strong> "Chat with the vendor" — but the vendor is "ProBlack Team."</li>
+<li><strong>Wishlist/share:</strong> present; wishlist requires an account and redirects to sign-in.</li>
+<li><strong>Breadcrumbs:</strong> link to <code>https://problack.co/shop?category=Electronics</code> rather than <code>/shop/electronics</code>, creating duplicate taxonomy URLs.</li>
+</ul>
+<h3 id="65-imagery">6.5 Imagery</h3>
+<ul>
+<li>Most listings have a single image; a few have 5–7.</li>
+<li>All images are proxied through Next Image at up to <code>w=3840&amp;q=75</code>, including thumbnails at <code>w=256</code>.</li>
+<li>Images are hosted on <code>demo-client.us</code>, outside the brand's domain — a single point of failure and an SEO/image-licensing question.</li>
+<li>The product OG image is generated per product (<code>/merchant-image/&lt;slug&gt;/0.webp</code>) — good — but the page's <code>og:image</code> metadata on the homepage is a product photo, not brand artwork.</li>
+</ul>
+<h3 id="66-recommended-fix-pdp">6.6 Recommended fix (PDP)</h3>
+<ol>
+<li>Replace template copy with structured, SKU-specific data: brand, model, dimensions, materials, what's in the box, compatibility, care.</li>
+<li>Only render tabs that have content; otherwise remove them.</li>
+<li>Add variant selectors and consolidate reviews at the parent-product level.</li>
+<li>Show real shipping cost/ETA and a link to the return policy.</li>
+<li>Attribute the seller correctly and show the vendor profile.</li>
+<li>Complete the existing Product/Offer markup (add <code>brand</code>, fix weight, align shipping and returns) and fix BreadcrumbList so it points to the clean category URL; add <code>AggregateRating</code> only when reviews are real.</li>
+</ol>
+<hr />
+<h2 id="7-category-browse-and-search-architecture">7. Category, browse and search architecture</h2>
+<h3 id="71-the-empty-category">7.1 The empty category</h3>
+<p><strong><code>/shop/clothing-and-fashion</code> returns no products at all.</strong> The page shows a category intro, a "Filters 1 / Active: Clothing &amp; Fashion" chip, and then jumps straight to SEO copy and "Browse other categories." There is no empty-state message, no suggested alternative, no apology — just a blank aisle.</p>
+<p>This matters because:</p>
+<ul>
+<li>The homepage's <strong>primary featured tile</strong> ("Back Black This Season — Style. Culture. Impact. <strong>Shop Fashion</strong>") links here.</li>
+<li>The header navigation links here.</li>
+<li>The category title promises "Women's Dresses &amp; Tops" and the description promises bodycon dresses, tunics, leggings and joggers.</li>
+<li>The sitemap lists it with priority 0.8 and daily changefreq.</li>
+</ul>
+<p>A new visitor following the site's most prominent merchandising unit lands on a dead end. This is the single highest-impact UX bug on the site.</p>
+<h3 id="72-category-copy-does-not-match-category-contents">7.2 Category copy does not match category contents</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>What the intro promises</th>
+<th>What is actually listed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Electronics</strong></td>
+<td>"Our biggest department, and it leans heavily toward photo and video… mirrorless bodies and DSLRs from Canon and Sony, double-zoom lens kits, magnetic phone tripods and ring lights"</td>
+<td>Watch batteries, headphones, earbuds, smartwatches, prepaid phones, a watch box</td>
+</tr>
+<tr>
+<td><strong>Jewelry &amp; Accessories</strong></td>
+<td>"Watches make up most of this category, and men's styles in particular — gunmetal cases… large-face digital sports watches"</td>
+<td>Women's birthstone jewelry sets, bridal sets, rhinestone necklaces</td>
+</tr>
+<tr>
+<td><strong>Financial Services</strong></td>
+<td>"Cash-handling equipment… bill counting machines with UV, magnetic and infrared counterfeit detection"</td>
+<td>Scientific calculators (11 of the first 13 items), then money counters</td>
+</tr>
+<tr>
+<td><strong>Clothing &amp; Fashion</strong></td>
+<td>Dresses, tunics, leggings, joggers, plus sizing</td>
+<td>Nothing</td>
+</tr>
+<tr>
+<td><strong>Beauty</strong></td>
+<td>Firming/cellulite/stretch-mark creams and hair treatments including SheaMoisture</td>
+<td>Clinique, Elizabeth Arden, Glow Recipe, Nivea, sheet masks</td>
+</tr>
+</tbody>
+</table></div>
+<p>The intros read as if written from a different dataset than the one powering the grid. Shoppers who click "Electronics" expecting cameras get watch batteries; that is an immediate bounce.</p>
+<h3 id="73-taxonomy-is-duplicated-and-inconsistent">7.3 Taxonomy is duplicated and inconsistent</h3>
+<ul>
+<li><strong>23 categories</strong> in the sitemap, <strong>9</strong> in the header, <strong>21</strong> on the Top Categories page.</li>
+<li>Overlapping categories: Beauty vs Health &amp; Beauty; Home &amp; Kitchen vs Home &amp; Garden vs Household Essentials; Clothing &amp; Fashion vs Jewelry &amp; Accessories; Food &amp; Beverages vs Grocery.</li>
+<li>Two URL schemes for the same taxonomy:</li>
+<li>Clean paths: <code>/shop/electronics</code>, <code>/shop/beauty</code></li>
+<li>Query parameters: <code>/shop?category=Electronics</code>, <code>/shop?category=Clothing%20%26%20Fashion</code> (used by breadcrumbs and Top Categories)</li>
+<li>This splits internal link equity, creates duplicate pages, and makes analytics unreliable.</li>
+</ul>
+<h3 id="74-pagination-and-crawl-depth">7.4 Pagination and crawl depth</h3>
+<ul>
+<li>Each category server-renders roughly <strong>19 products</strong> followed by a "Load more products" button.</li>
+<li><strong>Pagination is not URL-addressable.</strong> <code>/shop?page=2</code> returns the same first page; there is no <code>/shop/electronics?page=2</code>.</li>
+<li>Consequence: Google and other crawlers can only discover ~19 products per category through internal links. The remaining ~9,000 products are reachable only via the XML sitemap. That is a fragile indexing strategy and a poor experience for users who share or bookmark a page.</li>
+<li>No <code>rel=next/prev</code>, no numbered pagination, no result count ("Showing 19 of 1,240").</li>
+</ul>
+<h3 id="75-filters-and-sort">7.5 Filters and sort</h3>
+<ul>
+<li>A "Filters" control exists but no filter state is reflected in the URL (no brand, price, rating, size or availability facets).</li>
+<li>"Recommended" is the only visible sort; there is no price, newest or rating sort.</li>
+<li>The filter chip ("Active: Electronics") is a category label masquerading as a filter.</li>
+</ul>
+<h3 id="76-search">7.6 Search</h3>
+<ul>
+<li>There is a search control in the header, but <strong><code>/search</code> is a 404</strong>; search only works through <code>/shop?search=</code>.</li>
+<li>Results are extremely thin:</li>
+<li><code>shea</code> → <strong>4 results</strong> (Buttah, Cantu, Garnier, Lottabody) — despite SheaMoisture being named in the category copy.</li>
+<li><code>iphone</code> → a mix of iPhones, a smartwatch, selfie sticks and a Spanish tripod.</li>
+<li><code>luji</code> → <strong>"No products found"</strong> for a featured business.</li>
+<li>No typo tolerance, no synonyms, no category/brand suggestions, no "did you mean", no zero-result recovery.</li>
+<li>Search URLs are indexable (<code>index, follow</code>), creating crawlable duplicate result pages.</li>
+</ul>
+<p>For a 9,807-SKU catalog, a four-result search for a core ingredient is a serious merchandising failure — and further evidence that the visible inventory is much smaller or less connected than the headline number suggests.</p>
+<h3 id="77-recommended-fix-browse">7.7 Recommended fix (browse)</h3>
+<ol>
+<li>Fix or unlink Clothing &amp; Fashion immediately; add a real empty state.</li>
+<li>Rewrite category intros from actual inventory (or remove them).</li>
+<li>Consolidate to one canonical taxonomy with 301s from query-param URLs.</li>
+<li>Implement server-rendered pagination with URLs, result counts and <code>rel=next</code>.</li>
+<li>Add URL-driven facets (price, brand, availability, rating) and a sort control.</li>
+<li>Build real search (Algolia/TypeSense/Elastic) with synonyms and zero-result handling; block result URLs from indexing.</li>
+</ol>
+<hr />
+<h2 id="8-claims-statistics-and-social-proof">8. Claims, statistics and social proof</h2>
+<h3 id="81-the-numbers-do-not-agree-anywhere">8.1 The numbers do not agree — anywhere</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Where it appears</th>
+<th>Contradicted by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>9,807</strong> products from Black-owned sellers</td>
+<td>Homepage</td>
+<td>2,052 deals; page-level limitation to 19 items; no products attributable to directory businesses</td>
+</tr>
+<tr>
+<td><strong>19</strong> verified businesses in <strong>14</strong> states</td>
+<td>Homepage</td>
+<td><strong>18</strong> businesses in <code>businesses.xml</code>; the directory page exposes only <strong>5 states / 19 cities</strong></td>
+</tr>
+<tr>
+<td><strong>89</strong> community members</td>
+<td>Homepage</td>
+<td>"50K+ Active Members" (services page); "5K+ Happy Customers" (vendor signup)</td>
+</tr>
+<tr>
+<td><strong>265</strong> orders placed securely</td>
+<td>Homepage</td>
+<td>"2K+ Total Bookings" (vendor signup); 50+ Android downloads</td>
+</tr>
+<tr>
+<td><strong>69</strong> Black-owned sellers</td>
+<td>Homepage vendor block</td>
+<td>19 businesses; 150+ Active Vendors; 500+ Black-owned businesses</td>
+</tr>
+<tr>
+<td><strong>150+</strong> Active Vendors</td>
+<td>app.problack.co/signup</td>
+<td>18 businesses</td>
+</tr>
+<tr>
+<td><strong>500+</strong> Black-owned businesses</td>
+<td>app.problack.co/signup</td>
+<td>18 businesses</td>
+</tr>
+<tr>
+<td><strong>4.9★</strong> average rating</td>
+<td>Services page hero</td>
+<td>No reviews on any business, service or product we examined</td>
+</tr>
+<tr>
+<td><strong>2,052</strong> marked-down products</td>
+<td>Deals page</td>
+<td>Repeated/fabricated anchors (see §5)</td>
+</tr>
+<tr>
+<td><strong>"Verified reviews from real customers"</strong> on every listing</td>
+<td>Shop page SEO copy</td>
+<td>0 reviews on all 5 sampled PDPs</td>
+</tr>
+</tbody>
+</table></div>
+<p>A visitor who browses for ten minutes sees at least four different versions of "how big is this marketplace," ranging from 18 businesses to 500+, and from 89 members to 50,000. Inconsistent statistics are the fastest way to lose a skeptical shopper — and they are trivially checkable.</p>
+<h3 id="82-ratings-without-reviews">8.2 Ratings without reviews</h3>
+<p>The services page presents <strong>"4.9★ Average Rating"</strong> as a hero proof point. Both business profiles reviewed show <code>— Rating</code> and <code>0 Reviews</code>; the service page reviewed shows "Reviews (0)"; every sampled product shows "Reviews (0)".</p>
+<p>Displaying an aggregate rating with no underlying reviews is a classic deceptive-endorsement pattern and also breaches Google's review-snippet policies if marked up. The Product markup carries no <code>AggregateRating</code> or <code>Review</code>, which limits SEO exposure but not consumer-protection exposure.</p>
+<h3 id="83-verified-is-undefined-and-unearned">8.3 "Verified" is undefined and unearned</h3>
+<ul>
+<li>Every product carries a <strong>"Verified Seller"</strong> badge — attached to "ProBlack Team."</li>
+<li>Every business is described as "verified," but the site never states <strong>who</strong> verifies, <strong>what</strong> evidence is required, <strong>when</strong> verification expires, or <strong>how</strong> a business proves Black ownership.</li>
+<li>The FAQ question "How are businesses verified?" exists but its answer is not rendered (see §17.3).</li>
+<li>No verification certificate, badge ID, or appeal process is published.</li>
+</ul>
+<p>If "verified Black-owned" is the product, the verification standard must be public, documented and auditable. Right now it is a word on a badge.</p>
+<h3 id="84-recommended-fix-claims">8.4 Recommended fix (claims)</h3>
+<ol>
+<li>Pick one source of truth for metrics and generate every number from it (ideally a live stats service).</li>
+<li>Remove the 4.9★ rating and all star imagery until reviews exist.</li>
+<li>Replace "verified" with a defined standard: ownership attestation, business registration, ID check, review date, re-verification cadence, and a public "how we verify" page.</li>
+<li>Add a claims register: every public number has an owner, a query and a review date.</li>
+<li>Add third-party trust signals only when real (Stripe, BBB, Trustpilot, verified reviews).</li>
+</ol>
+<hr />
+<h2 id="9-business-directory-and-services">9. Business directory and services</h2>
+<h3 id="91-the-directory-is-tiny-and-disconnected">9.1 The directory is tiny and disconnected</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Businesses in sitemap</td>
+<td><strong>18</strong></td>
+</tr>
+<tr>
+<td>Services in sitemap</td>
+<td><strong>3</strong></td>
+</tr>
+<tr>
+<td>Category "listings" shown on <code>/services</code></td>
+<td><strong>8</strong> (Beauty 2, Clothing 2, Accounting &amp; Tax 1, Business &amp; Industrial 1, Food &amp; Beverage 1, Wellness 1)</td>
+</tr>
+<tr>
+<td>Businesses with products in the shop</td>
+<td><strong>None found</strong></td>
+</tr>
+<tr>
+<td>Businesses with bookable services</td>
+<td>2 (Ne Ndoro: 1; one other)</td>
+</tr>
+<tr>
+<td>Reviews across all businesses</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>States with listed businesses</td>
+<td>5 shown (CA, MI, NY, OK, plus…) — homepage claims 14</td>
+</tr>
+</tbody>
+</table></div>
+<p>The directory and the marketplace are effectively two different products sharing a header. A shopper who discovers Luji's Chocolate cannot buy the chocolate; a shopper browsing the shop never encounters Luji's.</p>
+<h3 id="92-service-categories-hundreds-of-empty-doors">9.2 Service categories: hundreds of empty doors</h3>
+<p><code>/services</code> lists 60+ categories. Almost all show <strong>"0 listings"</strong> — Accounting Services, Agriculture, Animal Care, Anti-Aging Facial, Baking, Beard Trim, Brake Service, Bridal Makeup, Call Centers, Catering, Childcare, Church, Cleaning, Construction, Cooking Classes, CrossFit, Dental, DJ Services, Electrical, Event Planning, and on and on.</p>
+<p>Each one is a linked, crawlable URL. This is textbook <strong>thin/doorway content</strong>: pages created for search engines that offer no inventory. Google's spam policies explicitly target this pattern, and it dilutes the crawl budget for pages that do have content.</p>
+<h3 id="93-programmatic-location-pages">9.3 Programmatic location pages</h3>
+<p>The <code>locations.xml</code> sitemap contains 24 URLs (5 states, 19 cities). The <code>seo-pages.xml</code> sitemap contains <strong>several hundred programmatic pages</strong> (8 sitemap chunks) of the form:</p>
+<ul>
+<li><code>/black-owned-businesses-in-{city}</code> (40+ cities, including Seattle, Portland, Las Vegas, Phoenix, Boston, Sacramento, Nashville — cities with no listed businesses)</li>
+<li><code>/black-owned-{category}</code> (restaurants, barbershops, beauty salons, home services, financial services, etc.)</li>
+<li><code>/black-owned-{category}-in-{city}</code> (a full city × category matrix)</li>
+</ul>
+<p>The Georgia state page illustrates the quality:</p>
+<ul>
+<li>~900 words of generic, spun copy ("Use one focused guide to compare practical options…").</li>
+<li>Internal links that point back to <strong>the same page</strong> ("local business directory" → the Georgia page; "related local category guides" → the Georgia page).</li>
+<li><strong>Zero Georgia businesses listed.</strong></li>
+<li>Unrelated product widgets (LEGO, dog toys, desk organizers) inserted below the copy.</li>
+<li>City links (Atlanta, Savannah, Augusta) that lead to further pages with no inventory.</li>
+</ul>
+<p>At scale this is hundreds of near-duplicate pages competing for "Black-owned businesses in {city}" queries with no businesses to show. It can produce short-term impressions and long-term manual-action risk.</p>
+<h3 id="94-business-profile-quality">9.4 Business profile quality</h3>
+<p>Examples reviewed: <strong>Ne Ndoro</strong> (Richmond, CA) and <strong>Luji's Chocolate</strong> (Owings Mills, MD).</p>
+<p>What works: address, phone, email, hours, category, service listing, map-style contact block, "Open now" status.</p>
+<p>What does not:</p>
+<ul>
+<li><strong>Inventory mismatch:</strong> Ne Ndoro is categorised "Hair &amp; Beauty" but its only service is "Custom Tailoring," tagged "Other."</li>
+<li><strong>AI-generated imagery:</strong> the Ne Ndoro service image is hosted on Cloudinary with the filename <code>ChatGPT Image Dec 30, 2025, 07_45_48 PM.png</code> — a generated image presented as a business photo. The business logo on the profile is also a generic webp.</li>
+<li><strong>Unformatted contact data:</strong> <code>5106290705</code>, <code>5515019534</code> — no formatting, no validation.</li>
+<li><strong>"Open now · until 17:00"</strong> is shown without a timezone and despite no timezone field on the profile.</li>
+<li><strong>Location granularity is wrong:</strong> service page shows "Location: US"; no city, radius or travel policy.</li>
+<li><strong>No reviews, no rating, no response time, no verification date.</strong></li>
+<li><strong>No products</strong> for a chocolate business.</li>
+<li><strong>Similar businesses</strong> are all labelled "New" and include unrelated categories (a cleaning company next to a salon).</li>
+<li><strong>Schema exists but is mis-typed and truncated:</strong> Ne Ndoro is marked up as a <code>HairSalon</code> even though its only service is tailoring; <code>addressLocality</code> is <code>"Richmond "</code> (trailing space); the Service <code>description</code> is cut off mid-sentence ("…allow 3 we"); duration is stored in <code>serviceOutput</code> rather than a duration property; and the service image is a <strong>1.9 MB PNG</strong> generated by ChatGPT.</li>
+</ul>
+<h3 id="95-recommended-fix-directory">9.5 Recommended fix (directory)</h3>
+<ol>
+<li>Merge directory and marketplace: every business profile should show its products and services, with a single checkout.</li>
+<li>Publish the verification standard and display a verification date and method on each profile.</li>
+<li>Remove all zero-inventory service categories from navigation and sitemaps until they have listings (or consolidate them).</li>
+<li>Noindex or delete city/category pages with no businesses; only publish location pages that have ≥3 real listings.</li>
+<li>Replace generic copy with locally specific, human-written content or remove it.</li>
+<li>Fix and extend the existing <code>HairSalon</code>/<code>LocalBusiness</code> and <code>Service</code> markup (correct type, duration, address, description); add BreadcrumbList and <code>AggregateRating</code> once real reviews exist.</li>
+<li>Normalise phone/address data; store timezone; show hours accurately.</li>
+</ol>
+<hr />
+<h2 id="10-legal-policy-and-compliance">10. Legal, policy and compliance</h2>
+<blockquote>
+<p>These are risk observations for counsel to review, not legal conclusions.</p>
+</blockquote>
+<h3 id="101-policies-describe-a-different-product">10.1 Policies describe a different product</h3>
+<p>Both core policies are written for the <strong>mobile app</strong>, not the website:</p>
+<ul>
+<li><strong>Privacy Policy:</strong> "This Privacy Policy outlines how we collect, use, disclose, and safeguard your information when you use the <strong>Pro Black mobile application ('App'), available on the Google Play Store</strong>." It never mentions the website, cookies, analytics, browser data or web checkout. It also ignores iOS despite an App Store listing.</li>
+<li><strong>Terms of Service:</strong> "These Terms govern your access to and use of the <strong>Pro Black mobile application ('App')</strong>… By downloading, installing, or using Pro Black…" — download/install language, no website terms, no marketplace seller terms, no returns/refunds incorporated by reference.</li>
+</ul>
+<p><strong>Gaps this creates:</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cookie/tracking disclosure</td>
+<td>Absent</td>
+</tr>
+<tr>
+<td>CCPA/CPRA "Do Not Sell or Share" notice and link</td>
+<td>Absent (despite California audience)</td>
+</tr>
+<tr>
+<td>GDPR/UK GDPR lawful basis, transfer mechanism, DPA</td>
+<td>Absent</td>
+</tr>
+<tr>
+<td>Data retention schedule</td>
+<td>Absent</td>
+</tr>
+<tr>
+<td>Processor/sub-processor list (Stripe, Vercel, image host)</td>
+<td>Partial (Stripe only)</td>
+</tr>
+<tr>
+<td>Seller terms / vendor agreement published</td>
+<td>Absent</td>
+</tr>
+<tr>
+<td>Marketplace role disclosure (who is merchant of record)</td>
+<td>Absent</td>
+</tr>
+<tr>
+<td>Dispute resolution / arbitration / governing law</td>
+<td>Present but app-framed</td>
+</tr>
+<tr>
+<td>Accessibility statement</td>
+<td>Absent</td>
+</tr>
+<tr>
+<td>SMS program terms with opt-in evidence</td>
+<td>Present in policy and contact form</td>
+</tr>
+</tbody>
+</table></div>
+<p>The contact form's SMS consent paragraph is well drafted (STOP/HELP, frequency, rates). That is one of the few compliance positives.</p>
+<h3 id="102-conflicting-company-identity">10.2 Conflicting company identity</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value 1</th>
+<th>Value 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Address</td>
+<td><strong>3009 Sweet Gum Lane, Williamsburg, VA 23185</strong> (Privacy Policy)</td>
+<td><strong>8401 Mayland Dr #7269, Richmond, VA 23294</strong> (site footer)</td>
+</tr>
+<tr>
+<td>Support phone</td>
+<td><strong>+1 (859) 300-3983</strong> (Support page)</td>
+<td><strong>+1 (757) 870-4183</strong> (Google Play)</td>
+</tr>
+<tr>
+<td>Support email</td>
+<td><strong>info@problack.co</strong> (site)</td>
+<td><strong>fjsherman1@gmail.com</strong> (Google Play)</td>
+</tr>
+<tr>
+<td>Developer</td>
+<td>"Pro Black Inc." (App Store copyright)</td>
+<td>"Freddie Sherman" (App Store seller / Play developer)</td>
+</tr>
+<tr>
+<td>Privacy policy</td>
+<td><code>/privacy-policy</code> (site)</td>
+<td><code>problack-lp.vercel.app/privacy-policy.html</code> (App Store)</td>
+</tr>
+<tr>
+<td>App Store app</td>
+<td><code>id6748367144</code> (buttons)</td>
+<td><code>id6449268531</code> (footer "Get the app")</td>
+</tr>
+</tbody>
+</table></div>
+<p>Two addresses, two phone numbers, two privacy policies, a personal Gmail and two App Store IDs. For a marketplace handling payments and personal data, this is a serious credibility and due-diligence problem — and it undermines any attempt to enforce terms or respond to a regulator.</p>
+<h3 id="103-returns-and-refunds-contradict-each-other">10.3 Returns and refunds contradict each other</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Return Policy</th>
+<th>Refund Policy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Return shipping</td>
+<td>"Returns are free — a prepaid return label is included in your package"</td>
+<td>"Original and return shipping costs are <strong>non-refundable</strong>"</td>
+</tr>
+<tr>
+<td>Refund timing</td>
+<td>"refunds are processed within <strong>5 days</strong>"</td>
+<td>"processed within <strong>5 to 10 business days</strong>"</td>
+</tr>
+<tr>
+<td>Damaged items</td>
+<td>Contact within <strong>7 days</strong> for exchange</td>
+<td>"Email us as soon as possible"</td>
+</tr>
+<tr>
+<td>Non-returnable</td>
+<td>Personal care, custom, digital, gift cards, final sale</td>
+<td>Not addressed</td>
+</tr>
+</tbody>
+</table></div>
+<p>For a drop-ship catalog, "a prepaid return label is included in your package" is almost certainly not operationally true — the platform does not control what the third-party fulfiller puts in the box. Promising it creates a per-order obligation the business cannot meet, which is both a customer-service crisis and a potential misrepresentation.</p>
+<h3 id="104-broken-consent-links-at-the-point-of-signup">10.4 Broken consent links at the point of signup</h3>
+<p>On <strong>app.problack.co/signup</strong> (the vendor signup), the footer of the form reads:</p>
+<blockquote>
+<p>"By creating an account, you agree to our <strong>Terms of Service</strong> and <strong>Privacy Policy</strong>."</p>
+</blockquote>
+<p>Both links are <code>href="#"</code>. A vendor cannot review the terms they are agreeing to, and there is no evidence of affirmative consent. The main site's <code>/signup</code> links correctly to <code>/terms-of-service</code> and <code>/privacy-policy</code> — the inconsistency suggests the vendor app was built separately and never brought into compliance.</p>
+<h3 id="105-account-deletion">10.5 Account deletion</h3>
+<p><code>/delete-account</code> asks only for an email address and a reason, with a confirmation checkbox. There is no authentication step visible before submission. If the backend deletes accounts based on an unauthenticated email submission, that is a <strong>account-takeover / data-loss vulnerability</strong>; if it sends a verification email, the page should say so. This needs immediate engineering review.</p>
+<h3 id="106-advertising-and-endorsement-exposure">10.6 Advertising and endorsement exposure</h3>
+<p>Potentially material claims:</p>
+<ol>
+<li><strong>"Verified Black-owned"</strong> applied to products from L'Oréal, Estée Lauder, PepsiCo, Apple, Bose, LEGO, etc.</li>
+<li><strong>"Every discount is a genuine reduction… no inflated 'was' prices"</strong> alongside repeated/implausible anchors.</li>
+<li><strong>"4.9★ Average Rating"</strong> with zero reviews.</li>
+<li><strong>"50K+ Active Members" / "5K+ Happy Customers"</strong> with 50+ Android installs and 89 community members.</li>
+<li><strong>"Every product listing includes verified reviews from real customers"</strong> with zero reviews.</li>
+<li><strong>"Verified businesses"</strong> with no published verification standard.</li>
+</ol>
+<p>In the US, these map to FTC Act §5 (deceptive acts), the FTC's endorsement and review guides (16 CFR Part 255), the deceptive-pricing guides (16 CFR Part 233), and state UDAP statutes. "Black-owned" is a provenance claim, and provenance claims are treated similarly to "Made in USA" claims: they must be true, documented and not misleading in context.</p>
+<h3 id="107-recommended-fix-legal">10.7 Recommended fix (legal)</h3>
+<ol>
+<li>Retain counsel to review all marketing claims, pricing representations and the returns/refund framework.</li>
+<li>Rewrite Privacy Policy and Terms for the <strong>website + marketplace</strong>, with seller terms, merchant-of-record clarity, cookie policy, state privacy rights and retention.</li>
+<li>Publish <strong>one</strong> legal entity, address, phone and email everywhere (site, apps, invoices, policies).</li>
+<li>Fix the vendor-signup consent links; log consent (timestamp, version, IP).</li>
+<li>Make returns/refunds operationally true before promising them; align the two policies.</li>
+<li>Add a cookie consent manager if any analytics/marketing tags run; add "Do Not Sell/Share" and "Your Privacy Choices."</li>
+<li>Add an accessibility statement and a public "How we verify" page.</li>
+</ol>
+<hr />
+<h2 id="11-seo">11. SEO</h2>
+<h3 id="111-what-is-technically-sound">11.1 What is technically sound</h3>
+<ul>
+<li>Clean, descriptive title tags on home, category, blog and service pages.</li>
+<li>Self-referencing canonicals on product pages.</li>
+<li><code>robots.txt</code> with sensible private-path exclusions and an explicit sitemap.</li>
+<li>Sitemap index with eight logical child sitemaps.</li>
+<li>HTTPS, HSTS, Vercel edge caching.</li>
+<li>Branded 404 page with recovery links.</li>
+<li><code>www</code> → apex redirect works.</li>
+<li>A full JSON-LD stack on product and blog templates (Organization, WebSite, Product/Offer, BreadcrumbList, FAQPage, BlogPosting) — it needs correction, not construction.</li>
+</ul>
+<h3 id="112-what-is-holding-it-back">11.2 What is holding it back</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Detail</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Structured data is present but flawed</strong></td>
+<td>Each product carries five JSON-LD blocks: Organization, WebSite, Product/Offer (price, availability, seller "ProBlack Team", $12 shipping, free 30-day returns), BreadcrumbList and a two-question FAQPage. Gaps: <strong>no <code>brand</code></strong>, no <code>AggregateRating</code>/<code>Review</code>, and the <strong>same two generic FAQs</strong> ("Does ProBlack offer fast shipping?") are repeated across thousands of products. BreadcrumbList points to <code>/shop?category=Toys%20%26%20Games</code>, entrenching the duplicate taxonomy. Offer declares <strong>$12 flat shipping</strong> vs "calculated at checkout" and <strong>free returns</strong> vs the Refund Policy's non-refundable return shipping. Blog posts do have <code>BlogPosting</code> + <code>FAQPage</code>, but the author is the Organization, not a person</td>
+<td>Rich results are weakened; duplicated FAQ markup looks spammy; structured data contradicts visible policy</td>
+</tr>
+<tr>
+<td><strong>Meta descriptions auto-truncated</strong></td>
+<td>Product description is body copy cut mid-word: "…in a clean whit"</td>
+<td>Poor CTR; low-quality snippet</td>
+</tr>
+<tr>
+<td><strong>Product titles lack brand/store</strong></td>
+<td><code>&lt;title&gt;</code> is just the product name</td>
+<td>Weaker differentiation in SERPs</td>
+</tr>
+<tr>
+<td><strong>Thousands of near-duplicate pages</strong></td>
+<td>Templated descriptions, repeated titles, variant sprawl</td>
+<td>Crawl waste, cannibalisation, quality risk</td>
+</tr>
+<tr>
+<td><strong>Only ~19 products linked per category</strong></td>
+<td>"Load more" is client-side; no URL pagination</td>
+<td>~9,000 products depend entirely on sitemap discovery</td>
+</tr>
+<tr>
+<td><strong>Indexable filter/search URLs</strong></td>
+<td><code>/shop?search=</code>, <code>?category=</code>, <code>?page=</code> all return <code>index, follow</code></td>
+<td>Faceted duplicate URLs</td>
+</tr>
+<tr>
+<td><strong>Empty category indexed</strong></td>
+<td>Clothing &amp; Fashion is in the sitemap at priority 0.8 with no products</td>
+<td>Thin page, bad landing experience</td>
+</tr>
+<tr>
+<td><strong>~400 programmatic city/category pages</strong></td>
+<td>No businesses; self-referential internal links; spun copy</td>
+<td>Doorway-page risk; dilution</td>
+</tr>
+<tr>
+<td><strong>Duplicate blog slugs</strong></td>
+<td>e.g. <code>black-owned-fall-decor-…</code> and <code>…-2</code>; <code>black-owned-halloween-…</code> and <code>…-2</code>; <code>buy-black-build-wealth-…</code> and <code>…-2</code></td>
+<td>Duplicate content, split rankings</td>
+</tr>
+<tr>
+<td><strong>Sitemap freshness is unreliable</strong></td>
+<td>Every product entry sampled carried <code>lastmod</code> 2026-07-22; blog <code>lastmod</code> differs from on-page dates</td>
+<td>Crawlers learn to distrust lastmod</td>
+</tr>
+<tr>
+<td><strong>Breadcrumbs use query URLs</strong></td>
+<td><code>…/shop?category=Electronics</code> instead of <code>/shop/electronics</code></td>
+<td>Splits taxonomy signals</td>
+</tr>
+<tr>
+<td><strong>No author/E-E-A-T signals</strong></td>
+<td>"Pro Black Team" with no bio, no editorial policy, no sources</td>
+<td>Weak trust for informational content</td>
+</tr>
+<tr>
+<td><strong>Homepage OG image is a product photo</strong></td>
+<td><code>og:image</code> = May Birthstone image</td>
+<td>Weak social sharing/brand recall</td>
+</tr>
+<tr>
+<td><strong>Missing pages from sitemap</strong></td>
+<td>Privacy, terms, returns, refunds, delete-account are footer-only</td>
+<td>Minor discoverability gap</td>
+</tr>
+<tr>
+<td><strong>Legal/trust pages lack schema</strong></td>
+<td>No Organization contact/address consistency</td>
+<td>Entity confusion</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="113-index-bloat-math">11.3 Index-bloat math</h3>
+<ul>
+<li>9,807 product URLs (mostly thin, templated, no reviews, no specs).</li>
+<li>~400 SEO landing pages (many with zero inventory).</li>
+<li>60+ service categories, most with zero listings.</li>
+<li>24 location pages, most with zero businesses.</li>
+<li>80+ blog posts, several duplicated.</li>
+</ul>
+<p>That is roughly <strong>10,400+ indexable URLs</strong>, of which only a few dozen have unique, substantive content and real inventory. Google tolerates this for a while; it does not reward it.</p>
+<h3 id="114-recommended-fix-seo">11.4 Recommended fix (SEO)</h3>
+<ol>
+<li>Complete the Product/Offer markup (add <code>brand</code>, fix weight, align shipping and returns), point BreadcrumbList at clean category URLs, replace the duplicated product FAQs with product-specific Q&amp;A, and add <code>AggregateRating</code> only when real reviews exist.</li>
+<li>Consolidate variants; write unique, structured descriptions from attributes.</li>
+<li>Implement URL pagination and server-rendered category pages; add <code>rel=next</code>.</li>
+<li>Canonicalise query-param URLs; <code>noindex, follow</code> internal search results.</li>
+<li>Prune: remove or noindex zero-inventory categories, cities and service types.</li>
+<li>Fix duplicate blog slugs with 301s; align sitemap <code>lastmod</code> with reality.</li>
+<li>Build a real internal-linking layer (related categories, vendor pages, buying guides that link to buyable products).</li>
+<li>Add brand assets to OG/Twitter metadata.</li>
+<li>Publish editorial standards, author bios and sources for the blog.</li>
+</ol>
+<hr />
+<h2 id="12-performance-and-technical-delivery">12. Performance and technical delivery</h2>
+<h3 id="121-stack">12.1 Stack</h3>
+<ul>
+<li><strong>Framework:</strong> Next.js (App Router) — <code>x-powered-by: Next.js</code>, <code>x-nextjs-prerender: 1</code>, <code>x-nextjs-stale-time: 300</code>.</li>
+<li><strong>Hosting:</strong> Vercel, <code>iad1</code> region, edge cache <code>HIT</code>, Brotli compression.</li>
+<li><strong>Images:</strong> Next Image optimizer proxying <code>demo-client.us</code> and <code>res.cloudinary.com</code>.</li>
+<li><strong>Fonts/icons:</strong> Font Awesome 6.5.1 CSS loaded from <code>cdnjs.cloudflare.com</code>.</li>
+<li><strong>API:</strong> separate <code>api.problack.co</code> service.</li>
+<li><strong>Vendor app:</strong> separate SPA at <code>app.problack.co</code>.</li>
+</ul>
+<h3 id="122-observations">12.2 Observations</h3>
+<ol>
+<li><strong>Automated Lighthouse hung.</strong> The run returned <code>PAGE_HUNG</code> ("the page stopped responding") on the homepage at 1280×720 mobile emulation. That may be bot mitigation or a heavy main-thread workload, but it needs investigation: if a real browser can hang, so can a shopper on a mid-range phone.</li>
+<li><strong>Image sizing.</strong> Product markup requests <code>w=3840&amp;q=75</code> for grid images and <code>w=256</code> for thumbnails. Next Image will emit <code>srcset</code>, so browsers can downshift, but the default is aggressive and the source host is external. Every image is a proxied third-party fetch on a cache miss.</li>
+<li><strong>Broken icon-font URLs.</strong> On product pages, the inline <code>@font-face</code> blocks contain malformed sources:
+   <code>url(https://problack.co/product/%22https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-solid-900.woff2%22)</code>
+   The quoted absolute URL has been resolved as a path, so the font files 404 and icons fall back or disappear. The page also pulls the full Font Awesome stylesheet from a third-party CDN (render-blocking, ~100 KB) to render a handful of icons.</li>
+<li><strong>Client-side pagination.</strong> "Load more" requires JS and additional API calls; no progressive enhancement.</li>
+<li><strong>Heavy client components.</strong> Tabbed product content, filters, search and cart are all client-rendered; the server HTML contains only the first state.</li>
+<li><strong>No visible preconnect</strong> to <code>demo-client.us</code> or the image CDN in the reviewed pages.</li>
+</ol>
+<h3 id="123-recommended-fix-performance">12.3 Recommended fix (performance)</h3>
+<ol>
+<li>Re-run Lighthouse/WebPageTest manually and fix whatever causes <code>PAGE_HUNG</code> (long tasks, hydration, third-party scripts).</li>
+<li>Self-host icon fonts (or use inline SVG) and remove the malformed <code>@font-face</code> rules; drop Font Awesome CSS.</li>
+<li>Set explicit <code>sizes</code> and image widths per breakpoint; move images to the primary domain or a controlled CDN.</li>
+<li>Preconnect to the image host; add <code>fetchpriority="high"</code> to the hero image only.</li>
+<li>Server-render pagination and critical product data; hydrate interactivity progressively.</li>
+<li>Add performance budgets and Lighthouse CI to the deploy pipeline.</li>
+</ol>
+<hr />
+<h2 id="13-security-and-privacy">13. Security and privacy</h2>
+<h3 id="131-response-headers">13.1 Response headers</h3>
+<p>Observed on <code>https://problack.co</code>:</p>
+<pre><code>strict-transport-security: max-age=63072000
+x-powered-by: Next.js
+server: Vercel
+</code></pre>
+<p>Missing:</p>
+<ul>
+<li><code>Content-Security-Policy</code></li>
+<li><code>X-Content-Type-Options: nosniff</code></li>
+<li><code>X-Frame-Options</code> / <code>frame-ancestors</code></li>
+<li><code>Referrer-Policy</code></li>
+<li><code>Permissions-Policy</code></li>
+<li><code>Cross-Origin-Opener-Policy</code> / <code>Cross-Origin-Resource-Policy</code></li>
+</ul>
+<p>HSTS is present but lacks <code>includeSubDomains</code> and <code>preload</code>, leaving <code>app.</code> and <code>api.</code> subdomains outside the policy.</p>
+<h3 id="132-api-surface">13.2 API surface</h3>
+<p><code>https://api.problack.co/</code> responds <code>{"status":"ok","message":"Server running"}</code>, and unknown routes return a descriptive error that echoes the full path and query string:</p>
+<blockquote>
+<p><code>{"status":"fail","message":"Cant't find route for /api/products?limit=2 this url."}</code></p>
+</blockquote>
+<p>The typo ("Cant't") is cosmetic; the behaviour is informative to attackers and suggests a custom router without a central 404 handler. No rate limiting or WAF behaviour was observable through passive testing.</p>
+<h3 id="133-privacy">13.3 Privacy</h3>
+<ul>
+<li>No cookie banner or consent manager was observed.</li>
+<li>The privacy policy does not mention cookies, analytics, pixels or the website.</li>
+<li>The site loads a third-party CDN stylesheet (cdnjs) — a supply-chain dependency without SRI hashes.</li>
+<li>The contact form collects name, email, phone and message and enables SMS consent; retention and processor details are not published.</li>
+<li>Google Play data-safety disclosure says the app may <strong>share</strong> personal, financial and device data with third parties — broader than the privacy policy suggests.</li>
+</ul>
+<h3 id="134-recommended-fix-security">13.4 Recommended fix (security)</h3>
+<ol>
+<li>Add CSP (report-only first), <code>nosniff</code>, <code>Referrer-Policy: strict-origin-when-cross-origin</code>, <code>Permissions-Policy</code>, frame protection.</li>
+<li>Extend HSTS to <code>includeSubDomains; preload</code> once all subdomains are HTTPS-only.</li>
+<li>Remove <code>x-powered-by</code>.</li>
+<li>Add SRI to third-party assets or self-host them.</li>
+<li>Replace API route echoes with generic errors; add rate limiting and request IDs.</li>
+<li>Implement cookie consent and a cookie policy; document analytics and retention.</li>
+<li>Review the unauthenticated delete-account flow immediately.</li>
+</ol>
+<hr />
+<h2 id="14-accessibility">14. Accessibility</h2>
+<p>Verified observations (not a full WCAG audit):</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Images with empty <code>alt</code></td>
+<td>Homepage benefit icons (<code>icon-verified.png</code>, <code>icon-secure.png</code>, etc.) render as <code>![]</code>; business profile logo duplicated with empty alt</td>
+</tr>
+<tr>
+<td>Icon-only links without accessible names</td>
+<td>Footer social links render as <code>[](https://facebook.com/…)</code>, <code>[](https://instagram.com/…)</code>, <code>[](https://tiktok.com/…)</code>, <code>[](https://youtube.com/…)</code></td>
+</tr>
+<tr>
+<td>Content not in the DOM until interaction</td>
+<td>Product Specifications/FAQs and most FAQ answers are absent from server HTML</td>
+</tr>
+<tr>
+<td>No skip link</td>
+<td>Not observed in the rendered header</td>
+</tr>
+<tr>
+<td>No accessibility statement</td>
+<td>Not found on the site or in the sitemap</td>
+</tr>
+<tr>
+<td>Form validation/labels</td>
+<td>Contact form labels are present and readable; login/signup rely on placeholder-like fields ("Full Name", "Email") without visible required markers beyond <code>*</code> on vendor signup</td>
+</tr>
+<tr>
+<td>Motion/contrast</td>
+<td>Not measured; must be tested with axe/WAVE and manual keyboard/screen-reader passes</td>
+</tr>
+</tbody>
+</table></div>
+<p>For a marketplace whose mission is inclusion, accessibility is also a brand statement. A WCAG 2.2 AA audit is inexpensive relative to the legal and reputational exposure of an inaccessible checkout.</p>
+<hr />
+<h2 id="15-mobile-apps-and-cross-channel-consistency">15. Mobile apps and cross-channel consistency</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>iOS</th>
+<th>Android</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Listing</td>
+<td><code>id6748367144</code> (Pro Black)</td>
+<td><code>com.blackownedbusiness</code></td>
+</tr>
+<tr>
+<td>Second link on site</td>
+<td>Footer "Get the app" → <code>id6449268531</code>, which does <strong>not</strong> match the app promoted on the page</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Developer</td>
+<td>Freddie Sherman (individual)</td>
+<td>Freddie Sherman (individual)</td>
+</tr>
+<tr>
+<td>Ratings</td>
+<td><strong>None</strong> ("hasn't received enough ratings")</td>
+<td>No rating shown</td>
+</tr>
+<tr>
+<td>Installs</td>
+<td>—</td>
+<td><strong>50+</strong></td>
+</tr>
+<tr>
+<td>Size</td>
+<td>35.8 MB</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Price</td>
+<td>Free</td>
+<td>Free, with in-app purchases</td>
+</tr>
+<tr>
+<td>Privacy policy link</td>
+<td><code>problack-lp.vercel.app/privacy-policy.html</code></td>
+<td><code>problack.co/privacy-policy</code></td>
+</tr>
+<tr>
+<td>Support contact</td>
+<td>App Store developer page</td>
+<td><strong>fjsherman1@gmail.com</strong>, +1 757-870-4183</td>
+</tr>
+<tr>
+<td>Copyright</td>
+<td>© 2025 Pro Black Inc.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Last update</td>
+<td>v1.3, Aug 24</td>
+<td>Aug 19, 2026</td>
+</tr>
+</tbody>
+</table></div>
+<p>Problems:</p>
+<ol>
+<li><strong>Two App Store IDs</strong> on the same site — one is stale or points to a different build/product.</li>
+<li><strong>50+ installs</strong> is inconsistent with "50K+ Active Members" and "5K+ Happy Customers."</li>
+<li><strong>Personal Gmail</strong> as the public support contact for a marketplace handling payments.</li>
+<li><strong>Two different privacy policies</strong> (site vs App Store).</li>
+<li>The App page FAQ tells vendors to "start at <strong>problack.co/signup</strong>" — that is the <strong>customer</strong> signup; vendors need <code>app.problack.co/signup</code>.</li>
+<li>The privacy policy describes only the Android app, yet iOS exists.</li>
+</ol>
+<hr />
+<h2 id="16-support-and-operations">16. Support and operations</h2>
+<ul>
+<li><strong>One inbox:</strong> every contact topic (orders, refunds, vendor applications, partnerships, press) routes to <code>info@problack.co</code>. No ticketing, no SLA per topic, no phone on the contact page.</li>
+<li><strong>Two phone numbers:</strong> site says +1 (859) 300-3983, Mon–Fri 9–6 EST; Google Play says +1 (757) 870-4183.</li>
+<li><strong>Live chat:</strong> "Start Chat" is offered on the support page but no chat widget was observed in the page; the link target could not be verified.</li>
+<li><strong>Response promises differ:</strong> "within one business day" (contact), "within 24 hours" (support), "up to three business days" (complex issues), "one to two business days" (FAQ).</li>
+<li><strong>Track order:</strong> accepts a tracking ID or order number, but there is no guidance on where to find either, and no guest lookup by email.</li>
+<li><strong>Returns:</strong> email-only, manual; no RMA portal, no return address, no carrier instructions.</li>
+<li><strong>No help centre articles:</strong> the "Help Center" is a contact page with six FAQ questions, all collapsed.</li>
+</ul>
+<p>Operationally, this is a startup support stack — acceptable at 265 orders, not at the scale the marketing claims.</p>
+<hr />
+<h2 id="17-content-and-blog">17. Content and blog</h2>
+<h3 id="171-volume-over-relevance">17.1 Volume over relevance</h3>
+<p>The blog contains <strong>80+ articles</strong>. The most recent 12 are almost entirely about consumer tech:</p>
+<ul>
+<li>"Googlebook vs MacBook Air M5"</li>
+<li>"Googlebook vs Chromebook Plus"</li>
+<li>"Googlebook Price, Specs and Release Date"</li>
+<li>"Gemini on Your Laptop: Googlebook Features"</li>
+<li>"Pixel 11 vs Pixel 10"</li>
+<li>"MacBook Air M5 vs M4"</li>
+<li>"iPhone 18 Pro vs iPhone 17 Pro"</li>
+</ul>
+<p>Only a minority relate to Black-owned business, and those that do are generic listicles ("Black-Owned Banks: The Complete 2026 List") that are not linked to any bookable product or service.</p>
+<p>This is a programmatic-SEO content strategy attached to a mission-driven brand. It attracts tech shoppers, not conscious-spending shoppers, and it dilutes topical authority.</p>
+<h3 id="172-accuracy-and-sourcing">17.2 Accuracy and sourcing</h3>
+<p>The Googlebook article states as fact:</p>
+<ul>
+<li>"The Googlebook is Google's brand-new, Gemini-first flagship" at <strong>$899</strong>.</li>
+<li>Specs including "Snapdragon X Elite / Intel Core Ultra," "Android / Chrome OS," "up to 2.8K OLED touchscreen."</li>
+<li>"The MacBook Air M5 ships with a 512GB SSD as standard."</li>
+<li>Battery "up to 14h (some say 18)."</li>
+</ul>
+<p>No sources, no citations, no "rumoured" hedging, no author expertise. If these products or specs are wrong or unannounced, the site is publishing misinformation under a trust-led brand. The same applies to "iPhone 18 Pro" and "Pixel 11" articles.</p>
+<h3 id="173-content-operations">17.3 Content operations</h3>
+<ul>
+<li><strong>Author:</strong> all posts by "Pro Black Team"; no bio, no editorial policy, no corrections policy, no contact for editorial.</li>
+<li><strong>Dates:</strong> article page says October 13, 2026; blog index says October 12, 2026; sitemap says 2026-10-15. Three dates for one post.</li>
+<li><strong>Duplicates:</strong> multiple <code>-2</code> slugs indicate republished or cloned posts.</li>
+<li><strong>FAQ answers missing:</strong> <code>/faq</code> lists 30 questions; only "What is Pro Black?" renders an answer in the HTML. The rest are collapsed and absent from source, so neither users without JS nor crawlers can read them.</li>
+<li><strong>Mission page:</strong> repeats the widely circulated but poorly sourced "dollar circulates for 6 hours in the Black community vs 20 days in the Jewish community" claim, alongside conflicting figures ($1.3T contribution, $1.98T by 2025, $2.2T GDP, $1.4T/$1.8T buying power) with no citations and visible "From the original presentation" internal-deck language.</li>
+<li><strong>Brand article without brands:</strong> "Brands You Thought Were Black-Owned (But Aren't)" names zero brands and offers no verifiable examples.</li>
+</ul>
+<h3 id="174-recommended-fix-content">17.4 Recommended fix (content)</h3>
+<ol>
+<li>Kill or archive off-topic tech content; redirect to relevant buying guides tied to inventory.</li>
+<li>Set an editorial standard: named authors, sources, dates, corrections, disclosure.</li>
+<li>Fix FAQ rendering so answers are in the HTML; add FAQPage schema.</li>
+<li>Replace mission-page statistics with cited, current sources — or remove them.</li>
+<li>Consolidate duplicate posts with 301s; align publish dates everywhere.</li>
+<li>Build content that supports commerce: "How to verify a Black-owned brand," vendor stories, category buying guides linked to real products.</li>
+</ol>
+<hr />
+<h2 id="18-what-is-working">18. What is working</h2>
+<p>It is worth being explicit, because the site has real strengths:</p>
+<ol>
+<li><strong>Design and brand identity.</strong> The visual system is cohesive, modern and warm; the hero, category tiles and typography are better than most early-stage marketplaces.</li>
+<li><strong>Clear value proposition.</strong> "Shop. Support. Empower." and the mission narrative are immediately understandable.</li>
+<li><strong>Modern stack.</strong> Next.js on Vercel with edge caching, Brotli and image optimisation is a sound foundation.</li>
+<li><strong>SEO plumbing.</strong> Sitemap index, robots.txt, canonicals, branded 404 and HTTPS/HSTS are in place — better than many launches.</li>
+<li><strong>Page inventory.</strong> Legal, support, contact, FAQ, app, mission, blog, directory and account pages all exist and are linked.</li>
+<li><strong>Category breadth.</strong> 23 categories with real content in most of them; grocery, beauty and electronics have substantial SKUs.</li>
+<li><strong>Product page anatomy.</strong> Gallery, breadcrumbs, price, stock, delivery estimate, wishlist, share and reviews tab are all present as components — they need data, not redesign. The underlying JSON-LD (Product/Offer/Breadcrumb/FAQ, BlogPosting) is more complete than most early-stage marketplaces.</li>
+<li><strong>Two mobile apps.</strong> Both stores have live listings, and the app landing page is well structured.</li>
+<li><strong>SMS consent language.</strong> The contact form's consent copy is better than typical.</li>
+<li><strong>Support channels.</strong> Email, phone and a promised chat give customers multiple routes.</li>
+</ol>
+<p>The gap is not design or technology. It is <strong>truth, data and operations</strong>.</p>
+<hr />
+<h2 id="19-prioritised-remediation-plan">19. Prioritised remediation plan</h2>
+<h3 id="p0-stop-the-bleeding-030-days">P0 — Stop the bleeding (0–30 days)</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Action</th>
+<th>Owner</th>
+<th>Effort</th>
+<th>Why now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Remove "Black-owned" from catalog pages; relabel the shop as "Marketplace" until provenance exists</td>
+<td>Marketing + Product</td>
+<td>S</td>
+<td>Stops active misrepresentation</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Delist non-Black-owned brands (Cantu, Garnier, Nivea, Clinique, Estée Lauder brands, Frito-Lay, etc.) or move them to a separate, clearly labelled store</td>
+<td>Merchandising</td>
+<td>M</td>
+<td>Removes the clearest evidence of deception</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Remove all compare-at prices without documented prior selling price; delete the "no inflated 'was' prices" sentence</td>
+<td>Pricing + Legal</td>
+<td>M</td>
+<td>Reference-price exposure</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Fix Clothing &amp; Fashion (populate or unpublish) and repoint the homepage hero</td>
+<td>Merchandising</td>
+<td>S</td>
+<td>Broken primary funnel</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Reconcile all public numbers to one audited source; delete 4.9★ and "verified reviews"</td>
+<td>Marketing</td>
+<td>S</td>
+<td>Credibility</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Publish one legal entity, address, phone and email across site and apps</td>
+<td>Ops + Legal</td>
+<td>S</td>
+<td>Trust and enforceability</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Fix vendor-signup Terms/Privacy links; log consent</td>
+<td>Engineering</td>
+<td>S</td>
+<td>Contract formation</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Resolve return/refund contradiction; remove prepaid-label promise until true</td>
+<td>Ops + Legal</td>
+<td>S</td>
+<td>Consumer protection</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Add security headers; remove <code>x-powered-by</code>; fix delete-account auth</td>
+<td>Engineering</td>
+<td>M</td>
+<td>Security</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Rewrite category intros to match actual inventory; fix wrong-product template inserts</td>
+<td>Content + Merch</td>
+<td>M</td>
+<td>Product misinformation</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Replace personal Gmail/phone on Google Play with company contacts; consolidate App Store IDs</td>
+<td>Ops</td>
+<td>S</td>
+<td>Trust</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="p1-build-the-real-marketplace-3090-days">P1 — Build the real marketplace (30–90 days)</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Action</th>
+<th>Effort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12</td>
+<td>Onboard the 18 businesses' catalogs; show "Sold by {vendor}" with profile links</td>
+<td>L</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Publish verification standard (ownership attestation, business registration, ID, re-verification) and a "How we verify" page</td>
+<td>M</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Product data enrichment: specs, variants, box contents, shipping, returns</td>
+<td>L</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Real search + URL pagination + facets + sort</td>
+<td>L</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Verified-purchase reviews; remove rating claims until volume exists</td>
+<td>M</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Fix Product schema (brand, weight, shipping/returns), breadcrumb URLs, duplicated FAQs; correct LocalBusiness/Service types and fields; add real review markup when reviews exist</td>
+<td>M</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Consolidate taxonomy; 301 query-param URLs; prune zero-inventory pages</td>
+<td>M</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Delete or noindex city/service pages with no listings; require ≥3 listings to publish</td>
+<td>M</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Cookie consent + analytics + conversion tracking</td>
+<td>M</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Rewrite policies for web + marketplace; add seller terms and privacy rights</td>
+<td>L</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Accessibility pass (WCAG 2.2 AA): alt text, labels, keyboard, contrast</td>
+<td>M</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="p2-grow-responsibly-90180-days">P2 — Grow responsibly (90–180 days)</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Action</th>
+<th>Effort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>23</td>
+<td>Curate a smaller, genuinely Black-owned catalog (200–500 SKUs) and market that number honestly</td>
+<td>L</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Editorial standards, named authors, sourcing, corrections policy</td>
+<td>M</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Performance program: icon fonts, image budgets, Lighthouse CI</td>
+<td>M</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Vendor success program: onboarding, photography, fulfilment SLAs</td>
+<td>L</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Returns/refund automation and RMA portal</td>
+<td>L</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Public trust centre: verified vendors, claims register, security, accessibility</td>
+<td>M</td>
+</tr>
+<tr>
+<td>29</td>
+<td>Consider third-party audits (B Corp-style, Black-owned certification partners)</td>
+<td>M</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="if-the-strategic-answer-is-we-are-a-deals-site">If the strategic answer is "we are a deals site"</h3>
+<p>Then:</p>
+<ol>
+<li>Remove Black-owned language from the shop entirely.</li>
+<li>Keep the directory as a separate, verified product with its own brand.</li>
+<li>Rebuild the catalog narrative around price and convenience.</li>
+<li>Remove the mission claims from commerce pages.</li>
+</ol>
+<p>Trying to be both without operational separation is the current failure mode.</p>
+<hr />
+<h2 id="20-appendices">20. Appendices</h2>
+<h3 id="appendix-a-page-inventory">Appendix A — Page inventory</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>URL</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/</code></td>
+<td>200</td>
+<td>Strong design; stats inconsistent; OG image is a product photo</td>
+</tr>
+<tr>
+<td><code>/shop</code></td>
+<td>200</td>
+<td>~19 products; no pagination URLs; no filters</td>
+</tr>
+<tr>
+<td><code>/shop/clothing-and-fashion</code></td>
+<td><span class="pill pill-amber">200 · empty</span></td>
+<td>Zero products; homepage hero links here</td>
+</tr>
+<tr>
+<td><code>/shop/beauty</code></td>
+<td>200</td>
+<td>Products present; intro partly mismatched</td>
+</tr>
+<tr>
+<td><code>/shop/electronics</code></td>
+<td>200</td>
+<td>Intro promises cameras; lists batteries/headphones</td>
+</tr>
+<tr>
+<td><code>/shop/jewelry-and-accessories</code></td>
+<td>200</td>
+<td>Intro promises men's watches; lists women's jewelry</td>
+</tr>
+<tr>
+<td><code>/shop/grocery</code></td>
+<td>200</td>
+<td>Mass-market CPG, not Black-owned</td>
+</tr>
+<tr>
+<td><code>/shop/financial-services</code></td>
+<td>200</td>
+<td>Calculators, not financial services</td>
+</tr>
+<tr>
+<td><code>/shop/deals</code></td>
+<td>200</td>
+<td>"No inflated 'was' prices" claim contradicted</td>
+</tr>
+<tr>
+<td><code>/shop/top-categories</code></td>
+<td>200</td>
+<td>21 categories, <code>?category=</code> URLs</td>
+</tr>
+<tr>
+<td><code>/services</code></td>
+<td>200</td>
+<td>8 listings; dozens of 0-listing categories; 4.9★ claim</td>
+</tr>
+<tr>
+<td><code>/black-owned-businesses</code></td>
+<td>200</td>
+<td>5 states / 19 cities only</td>
+</tr>
+<tr>
+<td><code>/black-owned-businesses/georgia</code></td>
+<td>200</td>
+<td>No Georgia businesses; self-referential links</td>
+</tr>
+<tr>
+<td><code>/business/ne-ndoro</code></td>
+<td>200</td>
+<td>1 service; AI-generated image filename</td>
+</tr>
+<tr>
+<td><code>/business/lujis-chocolate</code></td>
+<td>200</td>
+<td>0 services, 0 products, 0 reviews</td>
+</tr>
+<tr>
+<td><code>/services/custom-tailoring</code></td>
+<td>200</td>
+<td>"Other" category; location = "US"</td>
+</tr>
+<tr>
+<td><code>/blogs</code></td>
+<td>200</td>
+<td>80+ posts; off-topic tech content</td>
+</tr>
+<tr>
+<td><code>/blogs/googlebook-vs-macbook-air-m5-2026</code></td>
+<td>200</td>
+<td>Unsourced product claims</td>
+</tr>
+<tr>
+<td><code>/blogs/brands-you-thought-were-black-owned-but-aren-t</code></td>
+<td>200</td>
+<td>Names no brands</td>
+</tr>
+<tr>
+<td><code>/faq</code></td>
+<td>200</td>
+<td>Answers not rendered</td>
+</tr>
+<tr>
+<td><code>/contact</code></td>
+<td>200</td>
+<td>One email for all topics</td>
+</tr>
+<tr>
+<td><code>/support</code></td>
+<td>200</td>
+<td>Phone; "Live Chat" unverified</td>
+</tr>
+<tr>
+<td><code>/app</code></td>
+<td>200</td>
+<td>Wrong vendor-signup URL; two App Store IDs on site</td>
+</tr>
+<tr>
+<td><code>/our-mission</code></td>
+<td>200</td>
+<td>Debunked circulation stat; uncited GDP figures</td>
+</tr>
+<tr>
+<td><code>/cart</code></td>
+<td>200</td>
+<td>Empty-state works</td>
+</tr>
+<tr>
+<td><code>/checkout</code></td>
+<td>→ <code>/cart</code></td>
+<td>Protected/empty redirect</td>
+</tr>
+<tr>
+<td><code>/login</code>, <code>/signup</code></td>
+<td>200</td>
+<td>Work; main signup policies link correctly</td>
+</tr>
+<tr>
+<td><code>app.problack.co/signup</code></td>
+<td>200</td>
+<td>Terms/Privacy links are <code>#</code>; stats contradict site</td>
+</tr>
+<tr>
+<td><code>/track-order</code></td>
+<td>200</td>
+<td>No guidance; disallowed in robots</td>
+</tr>
+<tr>
+<td><code>/delete-account</code></td>
+<td>200</td>
+<td>Unauthenticated request flow — review</td>
+</tr>
+<tr>
+<td><code>/privacy-policy</code></td>
+<td>200</td>
+<td>App-only; Williamsburg address</td>
+</tr>
+<tr>
+<td><code>/terms-of-service</code></td>
+<td>200</td>
+<td>App-only</td>
+</tr>
+<tr>
+<td><code>/return-policy</code></td>
+<td>200</td>
+<td>Prepaid label promise</td>
+</tr>
+<tr>
+<td><code>/refund-policy</code></td>
+<td>200</td>
+<td>Contradicts return policy</td>
+</tr>
+<tr>
+<td><code>/search</code></td>
+<td><span class="pill pill-red">404</span></td>
+<td>No search route</td>
+</tr>
+<tr>
+<td><code>/api/products</code></td>
+<td><span class="pill pill-red">404</span></td>
+<td>No public catalog API</td>
+</tr>
+<tr>
+<td><code>/product/{slug}</code></td>
+<td>200</td>
+<td>Sold by ProBlack Team; empty tabs; 0 reviews</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="appendix-b-product-sample-excerpt">Appendix B — Product sample (excerpt)</h3>
+<p>Full dataset: <code>product-sample-audit.csv</code> (105 listings, 13 views).</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Product</th>
+<th>Brand shown</th>
+<th>Price</th>
+<th>"Was"</th>
+<th>Seller</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jewelry</td>
+<td>May Birthstone 18K White Gold Plated Jewelry</td>
+<td>Cate &amp; Chloe</td>
+<td>$45.49</td>
+<td>$388.70</td>
+<td>ProBlack Team</td>
+</tr>
+<tr>
+<td>Jewelry</td>
+<td>Mckayla 18K White Gold Plated Set</td>
+<td>Cate &amp; Chloe</td>
+<td>$45.49</td>
+<td>$388.70</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Jewelry</td>
+<td>Cordelia 18K White Gold Plated Set</td>
+<td>Cate &amp; Chloe</td>
+<td>$45.49</td>
+<td>$388.70</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Electronics</td>
+<td>Bose QC35 II Wireless Headphones</td>
+<td>Bose</td>
+<td>$365.92</td>
+<td>$512.88</td>
+<td>ProBlack Team</td>
+</tr>
+<tr>
+<td>Electronics</td>
+<td>Portable Bluetooth Speaker 30W</td>
+<td>CASCHO</td>
+<td>$855.40</td>
+<td>$1,002.86</td>
+<td>ProBlack Team</td>
+</tr>
+<tr>
+<td>Electronics</td>
+<td>Veatool T8 Wireless Earbuds</td>
+<td>Pro Black</td>
+<td>$32.32</td>
+<td>$293.90</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Electronics</td>
+<td>Veatool Mini Go Headphones</td>
+<td>Pro Black</td>
+<td>$44.08</td>
+<td>$293.90</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Beauty</td>
+<td>Cantu Shea Butter Leave-In Cream</td>
+<td>Pro Black</td>
+<td>$5.97</td>
+<td>—</td>
+<td>ProBlack Team</td>
+</tr>
+<tr>
+<td>Beauty</td>
+<td>Garnier Fructis Bouncy Curls Gel</td>
+<td>Pro Black</td>
+<td>$4.36</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Beauty</td>
+<td>Clinique Discover 3-Piece Set</td>
+<td>Pro Black</td>
+<td>$28.60</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Grocery</td>
+<td>Frito Lay Classic Mix, 18 count</td>
+<td>Pro Black</td>
+<td>$9.97</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Grocery</td>
+<td>Barilla Fettuccine, 16 oz</td>
+<td>Barilla</td>
+<td>$2.39</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Financial</td>
+<td>Cassida 9900R Money Counter</td>
+<td>Pro Black</td>
+<td>$1,583.99</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Toys</td>
+<td>LEGO Jade Rabbit Building Set</td>
+<td>Pro Black</td>
+<td>$26.22</td>
+<td>—</td>
+<td>ProBlack Team</td>
+</tr>
+<tr>
+<td>Toys</td>
+<td>Baby Infant Rattle Socks</td>
+<td>Pro Black</td>
+<td>$14.29</td>
+<td>$16.89</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>Apple iPhone 13, unlocked 128GB</td>
+<td>Apple</td>
+<td>$388.70</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="appendix-c-claim-ledger">Appendix C — Claim ledger</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Location</th>
+<th>Status</th>
+<th>Required action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>"9,807 products from Black-owned sellers"</td>
+<td>Homepage</td>
+<td>Unsupported</td>
+<td>Replace with audited counts of verifiably Black-owned SKUs</td>
+</tr>
+<tr>
+<td>"19 verified businesses in 14 states"</td>
+<td>Homepage</td>
+<td>18 businesses; 5 states shown</td>
+<td>Reconcile</td>
+</tr>
+<tr>
+<td>"89 community members"</td>
+<td>Homepage</td>
+<td>Conflicts with 50K+</td>
+<td>Reconcile</td>
+</tr>
+<tr>
+<td>"265 orders placed securely"</td>
+<td>Homepage</td>
+<td>Conflicts with 2K+ bookings</td>
+<td>Reconcile</td>
+</tr>
+<tr>
+<td>"69 Black-owned sellers"</td>
+<td>Homepage</td>
+<td>Conflicts with 150+/500+</td>
+<td>Reconcile</td>
+</tr>
+<tr>
+<td>"150+ Active Vendors"</td>
+<td>Vendor signup</td>
+<td>18 businesses</td>
+<td>Reconcile</td>
+</tr>
+<tr>
+<td>"500+ Black-owned businesses"</td>
+<td>Vendor signup</td>
+<td>18 businesses</td>
+<td>Reconcile</td>
+</tr>
+<tr>
+<td>"50K+ Active Members"</td>
+<td>Services</td>
+<td>50+ app installs</td>
+<td>Reconcile</td>
+</tr>
+<tr>
+<td>"5K+ Happy Customers"</td>
+<td>Vendor signup</td>
+<td>No supporting data</td>
+<td>Reconcile</td>
+</tr>
+<tr>
+<td>"4.9★ Average Rating"</td>
+<td>Services</td>
+<td>0 reviews</td>
+<td>Remove</td>
+</tr>
+<tr>
+<td>"Every discount is a genuine reduction… no inflated 'was' prices"</td>
+<td>Deals</td>
+<td>Contradicted</td>
+<td>Remove until true</td>
+</tr>
+<tr>
+<td>"Verified reviews from real customers" on every listing</td>
+<td>Shop</td>
+<td>0 reviews</td>
+<td>Remove</td>
+</tr>
+<tr>
+<td>"Every business verified"</td>
+<td>FAQ / sitewide</td>
+<td>No standard published</td>
+<td>Publish standard</td>
+</tr>
+<tr>
+<td>"Returns are free — prepaid label included"</td>
+<td>Return policy</td>
+<td>Not operationally supported</td>
+<td>Remove until true</td>
+</tr>
+<tr>
+<td>"Everything on problack.co, built for your phone"</td>
+<td>App page</td>
+<td>App has 50+ installs, no ratings</td>
+<td>Softer, accurate copy</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="appendix-d-evidence-log">Appendix D — Evidence log</h3>
+<p>Direct observations captured during the audit:</p>
+<ol>
+<li>Homepage stats block: 9,807 / 19 / 89 / 265; vendor block "Join 69 Black-owned sellers."</li>
+<li>Vendor signup hero: "Join 500+ Black-owned businesses"; 150+ Active Vendors; 2K+ Total Bookings; 5K+ Happy Customers; Terms/Privacy links <code>#</code>.</li>
+<li>Services hero: 50K+ Active Members; 4.9★ Average Rating; 8 total listings across all categories.</li>
+<li>Product pages (May Birthstone, Bose QC35 II, LEGO Jade Rabbit, Cantu, Portable Speaker): all "Sold by ProBlack Team — Verified Seller"; all "Reviews (0)"; no specifications.</li>
+<li>LEGO PDP copy: "Offered in size SMALL for a comfortable fit… Soft, safe materials designed for little hands… sounds babies love."</li>
+<li>Speaker PDP: $855.40 (was $1,002.86); "comfortable, lightweight design for all-day wear."</li>
+<li>Deals page: 2,052 products; "Every discount is a genuine reduction… no inflated 'was' prices"; $388.70 repeated.</li>
+<li>Clothing category: zero product cards across the full page.</li>
+<li>Search <code>shea</code>: 4 results; <code>luji</code>: no products found.</li>
+<li><code>businesses.xml</code>: 18 URLs. <code>services.xml</code>: 3 URLs. <code>locations.xml</code>: 24 URLs. <code>seo-pages.xml</code>: 8 chunks (~400+ URLs).</li>
+<li>Privacy Policy: "Pro Black mobile application… available on the Google Play Store"; address 3009 Sweet Gum Lane, Williamsburg, VA 23185.</li>
+<li>Footer: 8401 Mayland Dr #7269, Richmond, VA 23294; "Powered by Wix Website Developers"; App Store link id6449268531.</li>
+<li>Contact page: all four topics → info@problack.co.</li>
+<li>Support page: +1 (859) 300-3983, Mon–Fri 9–6 EST.</li>
+<li>Google Play: 50+ downloads; developer Freddie Sherman; fjsherman1@gmail.com; +1 (757) 870-4183.</li>
+<li>App Store: no ratings; privacy policy at problack-lp.vercel.app; © 2025 Pro Black Inc.</li>
+<li>Response headers: HSTS only; <code>x-powered-by: Next.js</code>; no CSP/XCTO/XFO/Referrer-Policy/Permissions-Policy.</li>
+<li>Product JSON-LD: five blocks — Organization, WebSite, Product/Offer, BreadcrumbList, FAQPage. Missing <code>brand</code> and <code>AggregateRating</code>; FAQPage repeats two generic questions; Offer declares $12 shipping and FreeReturn, contradicting "calculated at checkout" and the Refund Policy; LEGO schema declares weight 1 LBR; breadcrumb category URL uses a query string. Business page uses <code>HairSalon</code> schema for a tailoring business; Service schema has a truncated description and stores duration in <code>serviceOutput</code>.</li>
+<li>Lighthouse run: <code>PAGE_HUNG</code>.</li>
+<li>Malformed Font Awesome <code>@font-face</code> URLs on product pages.</li>
+<li>Blog dates: page Oct 13 / index Oct 12 / sitemap Oct 15.</li>
+<li>Blog duplicate slugs (<code>-2</code>) in <code>blog.xml</code>.</li>
+<li>Mission page: "From the original presentation"; $1.3T GDP, 2% recirculation, $1.98T by 2025, $2.2T; 6-hour/20-day/30-day dollar-circulation claims uncited.</li>
+<li>Ne Ndoro service image filename: <code>ChatGPT Image Dec 30, 2025, 07_45_48 PM.png</code>.</li>
+<li>Luji's Chocolate profile: 0 services, 0 reviews, 1 photo (same as logo).</li>
+</ol>
+<h3 id="appendix-e-verification-standard-checklist-recommended">Appendix E — Verification standard checklist (recommended)</h3>
+<p>For every vendor and product, require and record:</p>
+<ol>
+<li><strong>Legal entity name</strong> and state of registration (Secretary of State filing).</li>
+<li><strong>Ownership attestation</strong> signed by a person with ≥51% ownership, with ID verification.</li>
+<li><strong>Black ownership definition</strong> (e.g. ≥51% Black-owned and Black-controlled), published publicly.</li>
+<li><strong>Evidence type</strong> (certification body, self-attestation + documents, or third-party verification).</li>
+<li><strong>Verification date, verifier and expiry</strong> (annual re-verification).</li>
+<li><strong>Product provenance</strong>: vendor SKU, manufacturer, fulfilment location.</li>
+<li><strong>Permission to sell branded goods</strong> (authorised reseller documentation) where applicable.</li>
+<li><strong>Public profile fields</strong>: verification badge with tooltip, verification date, "how we verify" link.</li>
+<li><strong>Revocation process</strong> and appeals.</li>
+<li><strong>Audit log</strong> retained for regulator/partner review.</li>
+</ol>
+<hr />
+<h3 id="closing-note">Closing note</h3>
+<p>Pro Black does not have a design problem. It has a <strong>truth problem</strong>. The site looks like a marketplace; the data says it is a drop-ship store with a directory attached. Fixing the catalog — fewer products, real vendors, real prices, real reviews — would do more for conversion, SEO and legal exposure than any redesign.</p>
+<p>The fastest credible path is:</p>
+<ol>
+<li><strong>Tell the truth now</strong> (remove unsupported claims).</li>
+<li><strong>Shrink to quality</strong> (200–500 verified Black-owned SKUs).</li>
+<li><strong>Prove it</strong> (public verification standard, real reviews, real numbers).</li>
+<li><strong>Then scale.</strong></li>
+</ol>
+<p><em>End of report.</em></p>
+      <footer>
+        Independent audit · 20 October 2026 · Prepared from public pages only · Companion dataset:
+        product-sample-audit.csv · This document is not legal advice.
+      </footer>
+    </div>
+  </main>
+</div>
+</body>
+</html>
