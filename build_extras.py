@@ -107,7 +107,7 @@ def manuscript_docx():
         "Transcribed page-by-page from photographs of the 1923 Volland Edition; wording is faithful to that copy.",
         "Obvious printer's errors in the old copy were quietly corrected (a dropped 'to' in Chicken Licken, 'So the went' → 'So they went', one missing closing quote in Little Tuppens, and a few missing sentence stops).",
         "This copy's text differs in a few places from the later Donohue reprint: in this original, the wolf eats the first two pigs and is burned in the chimney, Little Tuppens is 'choking' (not coughing), and the cat 'kills' the rat / the rope 'hangs' the butcher. Soften these if you prefer before publishing.",
-        "ISBN and publisher details are placeholders on the copyright page and back cover of the PDF — tell your formatter what to insert.",
+        "Publisher is Paddlewood Classics — the client's banner (2nd design) is already placed on the front cover, title page, copyright page and back cover of the PDF. The ISBN is still a placeholder on the copyright page and back cover — insert it before printing.",
     ]:
         doc.add_paragraph(note, style="List Bullet")
     path = OUT / "Manuscript_Old_Old_Tales_Retold.docx"
@@ -187,6 +187,7 @@ def build_epub(cover_jpg: Path):
     add("title", "title.xhtml", "application/xhtml+xml", xhtml(BOOK_TITLE,
         f'<h1>{hesc(BOOK_TITLE)}</h1><p class="center"><i>{hesc(BOOK_SUBTITLE)}</i></p>'
         f'<p class="orn">&#9670;</p><p class="center">Illustrated by<br/>{hesc(ILLUSTRATOR)}</p>'
+        f'<p class="center small">PADDLEWOOD CLASSICS</p>'
         f'<p class="center small">THE VOLLAND EDITION &#8226; RESTORED EDITION</p>'
         f'<p class="center"><i>{hesc(DEDICATION)} {hesc(DEDICATION_TO)}.</i></p>'))
     navs.append((INTRO_TITLE, "intro.xhtml"))
@@ -242,6 +243,7 @@ def build_epub(cover_jpg: Path):
            f'<dc:title>{hesc(BOOK_TITLE)}: {hesc(BOOK_SUBTITLE)}</dc:title>'
            '<dc:language>en</dc:language>'
            f'<dc:creator>{hesc(ILLUSTRATOR)} (illustrator)</dc:creator>'
+           '<dc:publisher>Paddlewood Classics</dc:publisher>'
            '<dc:description>Eight best-beloved folk stories for children, restored from the 1923 Volland Edition.</dc:description>'
            '</metadata>'
            f'<manifest>{man}</manifest><spine toc="ncx">{spn}</spine></package>')

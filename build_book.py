@@ -171,6 +171,10 @@ def cover_art_crop(src_plate, out_name, frac=0.05):
 COVER_ART = cover_art_crop("plate-014.jpg", "cover_art.jpg")
 BACK_ART = cover_art_crop("plate-022.jpg", "back_art.jpg")
 
+# Publisher imprint banner (client-supplied, white background made transparent)
+LOGO = ROOT / "assets" / "paddlewood_banner.png"
+PUBLISHER = "Paddlewood Classics"
+
 
 def on_cover(c, doc):
     c.saveState()
@@ -204,8 +208,12 @@ def on_cover(c, doc):
     c.drawCentredString(PAGE_W / 2, y, "Illustrated by")
     c.setFillColor(GOLD); c.setFont("FellSC", 20)
     c.drawCentredString(PAGE_W / 2, y - 30, "Frederick Richardson")
-    c.setFillColor(CREAM_TEXT); c.setFont("Garamond-Medium", 9)
-    c.drawCentredString(PAGE_W / 2, 52, "T H E   V O L L A N D   E D I T I O N   •   R E S T O R E D   E D I T I O N")
+    # publisher banner at the foot of the cover
+    logo_w = 238; logo_h = logo_w * 287 / 608
+    c.drawImage(str(LOGO), (PAGE_W - logo_w) / 2, 56, width=logo_w,
+                height=logo_h, preserveAspectRatio=True, mask='auto')
+    c.setFillColor(CREAM_TEXT); c.setFont("Garamond-Medium", 8)
+    c.drawCentredString(PAGE_W / 2, 38, "T H E   V O L L A N D   E D I T I O N   •   R E S T O R E D   E D I T I O N")
     c.restoreState()
 
 
@@ -214,12 +222,14 @@ def on_back(c, doc):
     c.setFillColor(BLUE); c.rect(0, 0, PAGE_W, PAGE_H, stroke=0, fill=1)
     c.setStrokeColor(GOLD); c.setLineWidth(1.1); c.rect(22, 22, PAGE_W - 44, PAGE_H - 44, stroke=1, fill=0)
     c.setLineWidth(0.4); c.rect(26.5, 26.5, PAGE_W - 53, PAGE_H - 53, stroke=1, fill=0)
-    # ISBN box (placeholder for the publisher)
-    c.setFillColor(colors.white); c.rect(PAGE_W / 2 - 76, 44, 152, 86, stroke=0, fill=1)
+    # ISBN box (placeholder), bottom-right as usual so the publisher banner
+    # can sit centred at the foot of the back cover
+    isbn_x = PAGE_W - 190
+    c.setFillColor(colors.white); c.rect(isbn_x, 40, 152, 86, stroke=0, fill=1)
     c.setFillColor(colors.HexColor("#444444")); c.setFont("Garamond-Medium", 8.5)
-    c.drawCentredString(PAGE_W / 2, 118, "ISBN")
+    c.drawCentredString(isbn_x + 76, 114, "ISBN")
     c.setFont("Garamond-Italic", 8)
-    c.drawCentredString(PAGE_W / 2, 58, "(to be added by the publisher)")
+    c.drawCentredString(isbn_x + 76, 54, "(to be added by the publisher)")
     c.restoreState()
 
 
@@ -269,12 +279,73 @@ def img_flowable(path, width=None, height=None):
     return img
 
 
+# Every colour plate is restored to this one aspect ratio and printed in a
+# matching framed picture box. A short ladder of standard heights lets the
+# box shrink gracefully on text-heavy pages without changing its shape.
+PLATE_ASPECT = 1.45
+PLATE_HEIGHTS = (326, 314, 302, 290, 278, 266, 254, 242, 230, 218)
+
+
+class FramedPlate(Flowable):
+    """A colour plate clipped into a straight, bordered design box."""
+
+    def __init__(self, path, width, height=None, radius=8):
+        super().__init__()
+        self.path = str(path)
+        self.width = float(width)
+        self.height = float(height or width / PLATE_ASPECT)
+        self.radius = radius
+        self.hAlign = "CENTER"
+
+    def wrap(self, aw, ah):
+        return self.width, self.height
+
+    def draw(self):
+        c = self.canv
+        c.saveState()
+        clip = c.beginPath()
+        clip.roundRect(0, 0, self.width, self.height, self.radius)
+        c.clipPath(clip, stroke=0, fill=0)
+        c.drawImage(self.path, 0, 0, width=self.width, height=self.height,
+                    preserveAspectRatio=False, mask='auto')
+        c.restoreState()
+
+        c.saveState()
+        c.setStrokeColor(BROWN)
+        c.setLineWidth(1.05)
+        outer = c.beginPath()
+        outer.roundRect(0.5, 0.5, self.width - 1, self.height - 1, self.radius)
+        c.drawPath(outer, stroke=1, fill=0)
+        c.setStrokeColor(LIGHT_BROWN)
+        c.setLineWidth(0.35)
+        inner = c.beginPath()
+        inner.roundRect(3, 3, self.width - 6, self.height - 6,
+                        max(1, self.radius - 3))
+        c.drawPath(inner, stroke=1, fill=0)
+        c.restoreState()
+
+
+def plate_flowable(path, width=None, height=None):
+    if width and not height:
+        height = width / PLATE_ASPECT
+    if height and not width:
+        width = height * PLATE_ASPECT
+    return FramedPlate(path, width=width, height=height)
+
+
+def vignette_flowable(path, height):
+    """Initial-letter artwork in the same straight, bordered box style."""
+    im = PILImage.open(path)
+    iw, ih = im.size
+    radius = 3 if height < 60 else 6
+    return FramedPlate(path, width=height * iw / ih, height=height,
+                       radius=radius)
+
+
 def chunk_page(story_title, blocks, plate_no, text_page_no):
     """Build one book page: running head + plate + text (+ line art). Plate is
     scaled so plate+text+line-art fill but never overflow the page."""
     plate_path = AST / "plates" / f"plate-{plate_no:03d}.jpg"
-    pim = PILImage.open(plate_path); pw, ph = pim.size
-    aspect = ph / pw  # height per width
 
     line_path = AST / "lineart" / f"line-{text_page_no:03d}.png"
     has_line = text_page_no in LINE_ART_PAGES and line_path.exists()
@@ -292,9 +363,10 @@ def chunk_page(story_title, blocks, plate_no, text_page_no):
         text_h = measure(fl)
         for use_line in ((True, False) if has_line else (False,)):
             lh_needed = (line_h + 10) if use_line else 0
-            plate_h = avail - text_h - lh_needed
-            if plate_h >= 225:
-                chosen = (fl, min(plate_h, 355), use_line)
+            max_plate_h = avail - text_h - lh_needed
+            standard_h = next((h for h in PLATE_HEIGHTS if h <= max_plate_h), None)
+            if standard_h:
+                chosen = (fl, standard_h, use_line)
                 break
         if chosen:
             break
@@ -302,17 +374,17 @@ def chunk_page(story_title, blocks, plate_no, text_page_no):
         fl = []
         for i, b in enumerate(blocks):
             fl += block_flowables(b, dense=True, first=(i == 0))
-        chosen = (fl, 215, False)
+        chosen = (fl, 210, False)
     text_fl, plate_h, use_line = chosen
-    plate_w = min(FRAME_W, plate_h / aspect)
-    plate_actual_h = plate_w * aspect
+    plate_w = plate_h * PLATE_ASPECT
+    plate_actual_h = plate_h
 
     # distribute leftover whitespace on short pages so they look finished
     total_h = 21 + plate_actual_h + 13 + measure(text_fl) + ((line_h + 8) if use_line else 0)
     leftover = FRAME_H - 14 - total_h
 
     page = [Paragraph(story_title.upper(), S["RunHead"]),
-            img_flowable(plate_path, width=plate_w), Spacer(1, 13)]
+            plate_flowable(plate_path, width=plate_w, height=plate_h), Spacer(1, 13)]
     page += text_fl
     if use_line:
         gap = 8 + (min(leftover * 0.5, 80) if leftover > 55 else 0)
@@ -389,24 +461,28 @@ def build():
           Paragraph("<b>About this restored edition.</b> This edition was lovingly restored from photographs of a cherished 1923 copy of the Volland Edition. Every story has been transcribed faithful to the original pages and newly typeset for today’s young readers, and Frederick Richardson’s colour plates have been carefully straightened and restored. Only a few obvious printer’s errors in the old copy have been quietly corrected.", S["SmallLeft"]),
           Paragraph("The folk tales themselves belong to everyone — they were told and retold by mothers and grandmothers for hundreds of years before they were ever written down.", S["SmallLeft"]),
           Spacer(1, 26),
+          img_flowable(LOGO, width=205),
+          Spacer(1, 8),
+          Paragraph("This restored edition is published by <b>Paddlewood Classics</b>.", S["Small"]),
           Paragraph("Restored Edition", S["Small"]),
           Paragraph("ISBN: ______________________", S["Small"]),
-          Paragraph("(Publisher: add ISBN and publication details here before printing.)", S["Small"]),
+          Paragraph("(Add the ISBN and publication details here before printing.)", S["Small"]),
           PageBreak()]
 
     # ---- Title page ----
-    F += [Spacer(1, 66),
+    F += [Spacer(1, 50),
           Paragraph("Old, Old Tales Retold", st("TitleMain", fontName="FellSC", fontSize=34, leading=38, alignment=TA_CENTER)),
           Spacer(1, 6),
           Paragraph("Eight Best-Beloved Folk Stories for Children", S["CenterItalic"]),
           Ornament(space_before=8, space_after=14),
-          img_flowable(AST / "plates" / "plate-008.jpg", width=372),
+          plate_flowable(AST / "plates" / "plate-008.jpg", width=362),
           Spacer(1, 22),
           Paragraph("Illustrated by", S["CenterItalic"]),
           Paragraph("FREDERICK RICHARDSON", st("TitleIll", fontName="FellSC", fontSize=17, leading=21, alignment=TA_CENTER)),
-          Spacer(1, 40),
-          Paragraph("THE VOLLAND EDITION", st("TitleEd", fontName="Garamond-Medium", fontSize=10.5, leading=14, alignment=TA_CENTER, textColor=BROWN)),
-          Paragraph("Restored Edition", st("TitleEd2", fontName="Garamond-Italic", fontSize=11, leading=14, alignment=TA_CENTER, textColor=BROWN)),
+          Spacer(1, 26),
+          img_flowable(LOGO, width=282),
+          Spacer(1, 8),
+          Paragraph("THE VOLLAND EDITION • RESTORED EDITION", st("TitleEd", fontName="Garamond-Medium", fontSize=9.5, leading=13, alignment=TA_CENTER, textColor=BROWN)),
           PageBreak()]
 
     # ---- Dedication ----
@@ -419,12 +495,12 @@ def build():
     # ---- Contents ----
     F += [Spacer(1, 46), Paragraph("Contents", S["ContentsTitle"]), Ornament(space_after=14)]
     rows = []
-    rows.append([img_flowable(AST / "vignettes" / "vig-006.jpg", height=44),
+    rows.append([vignette_flowable(AST / "vignettes" / "vig-006.jpg", height=44),
                  Paragraph(f'<link href="#to-all-children-who-love-stories" color="#2B2118">{INTRO_TITLE}</link>', S["TOCItem"]),
                  Paragraph(str(INTRO_PG), S["TOCPage"])])
     for s in STORIES:
         anchor = re.sub(r"\W+", "-", s["title"].lower())
-        rows.append([img_flowable(AST / "vignettes" / f'vig-{s["vignette_page"]:03d}.jpg', height=44),
+        rows.append([vignette_flowable(AST / "vignettes" / f'vig-{s["vignette_page"]:03d}.jpg', height=44),
                      Paragraph(f'<link href="#{anchor}" color="#2B2118">{s["title"]}</link>', S["TOCItem"]),
                      Paragraph(str(STARTS[s["title"]]), S["TOCPage"])])
     toc = Table(rows, colWidths=[58, FRAME_W - 58 - 44, 32])
@@ -440,7 +516,7 @@ def build():
     for pi, paras in enumerate(INTRO_PAGES):
         if pi == 0:
             F += [Paragraph("TO ALL CHILDREN WHO LOVE STORIES", S["IntroHead"]),
-                  img_flowable(AST / "vignettes" / "vig-006.jpg", height=162),
+                  vignette_flowable(AST / "vignettes" / "vig-006.jpg", height=162),
                   Spacer(1, 12)]
         for i, p in enumerate(paras):
             F.append(Paragraph(esc(p), S["IntroFirst" if i == 0 else "Intro"]))
@@ -454,7 +530,7 @@ def build():
         anchor = re.sub(r"\W+", "-", s["title"].lower())
         F += [Spacer(1, 118),
               Paragraph(f"STORY {NUM_WORDS[idx].upper()}", S["StoryKicker"]),
-              img_flowable(tp, width=FRAME_W - 12),
+              plate_flowable(tp, width=FRAME_W - 12),
               Paragraph(f'<a name="{anchor}"/>{s["title"]}', S["StoryTitle"]),
               Spacer(1, 8), Ornament(),
               PageBreak()]
@@ -480,7 +556,9 @@ def build():
     for s in STORIES:
         F.append(Paragraph(s["title"], S["BackList"]))
     F += [Spacer(1, 16),
-          Paragraph("Illustrated by Frederick Richardson", S["BackBody"])]
+          Paragraph("Illustrated by Frederick Richardson", S["BackBody"]),
+          Spacer(1, 12),
+          img_flowable(LOGO, width=200)]
 
     doc.build(F)
     print("Built:", out_path)
