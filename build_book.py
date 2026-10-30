@@ -171,6 +171,10 @@ def cover_art_crop(src_plate, out_name, frac=0.05):
 COVER_ART = cover_art_crop("plate-014.jpg", "cover_art.jpg")
 BACK_ART = cover_art_crop("plate-022.jpg", "back_art.jpg")
 
+# Publisher imprint banner (client-supplied, white background made transparent)
+LOGO = ROOT / "assets" / "paddlewood_banner.png"
+PUBLISHER = "Paddlewood Classics"
+
 
 def on_cover(c, doc):
     c.saveState()
@@ -204,8 +208,12 @@ def on_cover(c, doc):
     c.drawCentredString(PAGE_W / 2, y, "Illustrated by")
     c.setFillColor(GOLD); c.setFont("FellSC", 20)
     c.drawCentredString(PAGE_W / 2, y - 30, "Frederick Richardson")
-    c.setFillColor(CREAM_TEXT); c.setFont("Garamond-Medium", 9)
-    c.drawCentredString(PAGE_W / 2, 52, "T H E   V O L L A N D   E D I T I O N   •   R E S T O R E D   E D I T I O N")
+    # publisher banner at the foot of the cover
+    logo_w = 238; logo_h = logo_w * 287 / 608
+    c.drawImage(str(LOGO), (PAGE_W - logo_w) / 2, 56, width=logo_w,
+                height=logo_h, preserveAspectRatio=True, mask='auto')
+    c.setFillColor(CREAM_TEXT); c.setFont("Garamond-Medium", 8)
+    c.drawCentredString(PAGE_W / 2, 38, "T H E   V O L L A N D   E D I T I O N   •   R E S T O R E D   E D I T I O N")
     c.restoreState()
 
 
@@ -214,12 +222,14 @@ def on_back(c, doc):
     c.setFillColor(BLUE); c.rect(0, 0, PAGE_W, PAGE_H, stroke=0, fill=1)
     c.setStrokeColor(GOLD); c.setLineWidth(1.1); c.rect(22, 22, PAGE_W - 44, PAGE_H - 44, stroke=1, fill=0)
     c.setLineWidth(0.4); c.rect(26.5, 26.5, PAGE_W - 53, PAGE_H - 53, stroke=1, fill=0)
-    # ISBN box (placeholder for the publisher)
-    c.setFillColor(colors.white); c.rect(PAGE_W / 2 - 76, 44, 152, 86, stroke=0, fill=1)
+    # ISBN box (placeholder), bottom-right as usual so the publisher banner
+    # can sit centred at the foot of the back cover
+    isbn_x = PAGE_W - 190
+    c.setFillColor(colors.white); c.rect(isbn_x, 40, 152, 86, stroke=0, fill=1)
     c.setFillColor(colors.HexColor("#444444")); c.setFont("Garamond-Medium", 8.5)
-    c.drawCentredString(PAGE_W / 2, 118, "ISBN")
+    c.drawCentredString(isbn_x + 76, 114, "ISBN")
     c.setFont("Garamond-Italic", 8)
-    c.drawCentredString(PAGE_W / 2, 58, "(to be added by the publisher)")
+    c.drawCentredString(isbn_x + 76, 54, "(to be added by the publisher)")
     c.restoreState()
 
 
@@ -451,24 +461,28 @@ def build():
           Paragraph("<b>About this restored edition.</b> This edition was lovingly restored from photographs of a cherished 1923 copy of the Volland Edition. Every story has been transcribed faithful to the original pages and newly typeset for today’s young readers, and Frederick Richardson’s colour plates have been carefully straightened and restored. Only a few obvious printer’s errors in the old copy have been quietly corrected.", S["SmallLeft"]),
           Paragraph("The folk tales themselves belong to everyone — they were told and retold by mothers and grandmothers for hundreds of years before they were ever written down.", S["SmallLeft"]),
           Spacer(1, 26),
+          img_flowable(LOGO, width=205),
+          Spacer(1, 8),
+          Paragraph("This restored edition is published by <b>Paddlewood Classics</b>.", S["Small"]),
           Paragraph("Restored Edition", S["Small"]),
           Paragraph("ISBN: ______________________", S["Small"]),
-          Paragraph("(Publisher: add ISBN and publication details here before printing.)", S["Small"]),
+          Paragraph("(Add the ISBN and publication details here before printing.)", S["Small"]),
           PageBreak()]
 
     # ---- Title page ----
-    F += [Spacer(1, 66),
+    F += [Spacer(1, 50),
           Paragraph("Old, Old Tales Retold", st("TitleMain", fontName="FellSC", fontSize=34, leading=38, alignment=TA_CENTER)),
           Spacer(1, 6),
           Paragraph("Eight Best-Beloved Folk Stories for Children", S["CenterItalic"]),
           Ornament(space_before=8, space_after=14),
-          plate_flowable(AST / "plates" / "plate-008.jpg", width=384),
+          plate_flowable(AST / "plates" / "plate-008.jpg", width=362),
           Spacer(1, 22),
           Paragraph("Illustrated by", S["CenterItalic"]),
           Paragraph("FREDERICK RICHARDSON", st("TitleIll", fontName="FellSC", fontSize=17, leading=21, alignment=TA_CENTER)),
-          Spacer(1, 40),
-          Paragraph("THE VOLLAND EDITION", st("TitleEd", fontName="Garamond-Medium", fontSize=10.5, leading=14, alignment=TA_CENTER, textColor=BROWN)),
-          Paragraph("Restored Edition", st("TitleEd2", fontName="Garamond-Italic", fontSize=11, leading=14, alignment=TA_CENTER, textColor=BROWN)),
+          Spacer(1, 26),
+          img_flowable(LOGO, width=282),
+          Spacer(1, 8),
+          Paragraph("THE VOLLAND EDITION • RESTORED EDITION", st("TitleEd", fontName="Garamond-Medium", fontSize=9.5, leading=13, alignment=TA_CENTER, textColor=BROWN)),
           PageBreak()]
 
     # ---- Dedication ----
@@ -542,7 +556,9 @@ def build():
     for s in STORIES:
         F.append(Paragraph(s["title"], S["BackList"]))
     F += [Spacer(1, 16),
-          Paragraph("Illustrated by Frederick Richardson", S["BackBody"])]
+          Paragraph("Illustrated by Frederick Richardson", S["BackBody"]),
+          Spacer(1, 12),
+          img_flowable(LOGO, width=200)]
 
     doc.build(F)
     print("Built:", out_path)

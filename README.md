@@ -13,6 +13,7 @@ P. F. Volland Company, illustrated by **Frederick Richardson**).
 | `Old_Old_Tales_Retold_Restored_Edition.epub` | eBook (EPUB 3) with cover, contents and all 51 colour plates. |
 | `Manuscript_Old_Old_Tales_Retold.docx` | Editable manuscript (Word) of the full text, with editor's notes at the end. |
 | `Manuscript_Old_Old_Tales_Retold.md` | Same manuscript in Markdown/plain text. |
+| `Paddlewood_Classics_Banner_Transparent.png` | Client's chosen publisher banner (design 2) with the white background removed — reusable on future Paddlewood Classics books. Original file kept in `assets/`. |
 
 ## Book specs
 
@@ -34,10 +35,22 @@ P. F. Volland Company, illustrated by **Frederick Richardson**).
   wee little" voices reproduce the original's different type sizes.
 - **New cover & back cover** designed in the spirit of the original blue cloth binding.
 
-## Before publishing — two placeholders to fill in
+## Publisher branding
 
-1. **ISBN** — left blank on the copyright page ("ISBN: ______") and as a white box on the back cover.
-2. **Publisher name** — add it on the copyright page (page 2) next to the ISBN line.
+**Paddlewood Classics** — the client's banner (their preferred 2nd design,
+mother duck with three ducklings) is placed as the publisher imprint on the
+front cover, title page, copyright page and back cover, and set as the
+publisher in the EPUB metadata. The cleaned transparent banner in `output/`
+(and `assets/`) can be reused in exactly the same spots on future books in
+the series. The round "coin" design was not used: the lettering around its
+rim is not readable real text, and its dark stone style does not match the
+book — it could at most serve as a small seal/sticker after a redesign.
+
+## Before publishing — one placeholder left
+
+- **ISBN** — still blank on the copyright page ("ISBN: ______") and as a white
+  box at the bottom-right of the back cover. Send the number and it will be
+  typeset in.
 
 If a different trim size is needed (e.g. 8.5″ × 8.5″ or US Letter for KDP), or the
 author's name should appear on the cover/title page, that is a small change in
